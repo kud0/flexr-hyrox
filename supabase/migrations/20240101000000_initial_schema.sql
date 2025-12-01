@@ -1,14 +1,14 @@
 -- FLEXR Database Schema
 -- Supabase Migration: Initial Schema
 
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- Note: gen_random_uuid() is built into PostgreSQL 13+ (used by Supabase)
+-- No extension needed
 
 -- ============================================
 -- USERS TABLE
 -- ============================================
 CREATE TABLE users (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email TEXT UNIQUE NOT NULL,
     apple_user_id TEXT UNIQUE,
     name TEXT,
@@ -37,7 +37,7 @@ CREATE TABLE users (
 -- User-defined training structure
 -- ============================================
 CREATE TABLE training_architectures (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     name TEXT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE training_architectures (
 -- WORKOUTS TABLE
 -- ============================================
 CREATE TABLE workouts (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     -- Basic info
@@ -113,7 +113,7 @@ CREATE TABLE workouts (
 -- Individual exercises within a workout
 -- ============================================
 CREATE TABLE workout_segments (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     workout_id UUID NOT NULL REFERENCES workouts(id) ON DELETE CASCADE,
 
     -- Segment type
@@ -167,7 +167,7 @@ CREATE TABLE workout_segments (
 -- AI-learned user performance data
 -- ============================================
 CREATE TABLE performance_profiles (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     -- Running performance
@@ -203,7 +203,7 @@ CREATE TABLE performance_profiles (
 -- Aggregated weekly training data
 -- ============================================
 CREATE TABLE weekly_summaries (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     week_start TIMESTAMPTZ NOT NULL,
@@ -235,7 +235,7 @@ CREATE TABLE weekly_summaries (
 -- For BYOP (Bring Your Own Program) feature
 -- ============================================
 CREATE TABLE custom_workout_templates (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     name TEXT NOT NULL,
@@ -264,7 +264,7 @@ CREATE TABLE custom_workout_templates (
 -- Multi-week training programs (BYOP)
 -- ============================================
 CREATE TABLE custom_programs (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 
     name TEXT NOT NULL,
