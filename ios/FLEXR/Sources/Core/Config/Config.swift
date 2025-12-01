@@ -20,8 +20,8 @@ enum Config {
             if let key = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_ANON_KEY") as? String {
                 return key
             }
-            // Development fallback - replace with your actual anon key
-            return "YOUR_ANON_KEY_HERE"
+            // Production anon key
+            return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtdndtb3hpa3h4eG14cHdyc2djIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ2MDcyMDEsImV4cCI6MjA4MDE4MzIwMX0.ZGskBgfbsQD2uRZZJLCoAsXM4w87qNoF8PSZAXcSSyk"
         }
     }
 
