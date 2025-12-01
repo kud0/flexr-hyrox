@@ -47,6 +47,9 @@ backend/build/
 *.env
 supabase/.env
 
+# Supabase temp files
+supabase/.temp/
+
 # IDE
 .idea/
 .vscode/
