@@ -7,42 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		/* App files */
-		001 /* FLEXRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101; };
-		002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102; };
-		003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103; };
-		/* Models */
-		004 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104; };
-		005 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105; };
-		006 /* WorkoutSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106; };
-		007 /* PerformanceProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107; };
-		/* Services */
-		008 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108; };
-		/* UI */
-		009 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109; };
-		/* Assets */
-		010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110; };
+		001 /* FLEXRApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101 /* FLEXRApp.swift */; };
+		002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102 /* ContentView.swift */; };
+		003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103 /* AppState.swift */; };
+		004 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104 /* User.swift */; };
+		005 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105 /* Workout.swift */; };
+		006 /* WorkoutSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106 /* WorkoutSegment.swift */; };
+		007 /* PerformanceProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107 /* PerformanceProfile.swift */; };
+		008 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108 /* HealthKitService.swift */; };
+		009 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109 /* DesignSystem.swift */; };
+		010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110 /* Assets.xcassets */; };
+		0AD107D12EDE02A800642CC2 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D02EDE02A800642CC2 /* Auth */; };
+		0AD107D32EDE02A800642CC2 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D22EDE02A800642CC2 /* Functions */; };
+		0AD107D52EDE02A800642CC2 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D42EDE02A800642CC2 /* PostgREST */; };
+		0AD107D72EDE02A800642CC2 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D62EDE02A800642CC2 /* Realtime */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		/* Products */
 		100 /* FLEXR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLEXR.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		/* App files */
 		101 /* FLEXRApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLEXRApp.swift; sourceTree = "<group>"; };
 		102 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		103 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		/* Models */
 		104 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		105 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		106 /* WorkoutSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSegment.swift; sourceTree = "<group>"; };
 		107 /* PerformanceProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceProfile.swift; sourceTree = "<group>"; };
-		/* Services */
 		108 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
-		/* UI */
 		109 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
-		/* Assets */
 		110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		/* Entitlements */
 		111 /* FLEXR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FLEXR.entitlements; sourceTree = "<group>"; };
 		112 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +44,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD107D52EDE02A800642CC2 /* PostgREST in Frameworks */,
+				0AD107D32EDE02A800642CC2 /* Functions in Frameworks */,
+				0AD107D12EDE02A800642CC2 /* Auth in Frameworks */,
+				0AD107D72EDE02A800642CC2 /* Realtime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,7 +158,7 @@
 /* Begin PBXNativeTarget section */
 		400 /* FLEXR */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 500;
+			buildConfigurationList = 500 /* Build configuration list for PBXNativeTarget "FLEXR" */;
 			buildPhases = (
 				401 /* Sources */,
 				200 /* Frameworks */,
@@ -192,7 +188,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 601;
+			buildConfigurationList = 601 /* Build configuration list for PBXProject "FLEXR" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -201,6 +197,9 @@
 				Base,
 			);
 			mainGroup = 300;
+			packageReferences = (
+				0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			productRefGroup = 302 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -369,7 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S6W4459DDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLEXR/Info.plist;
@@ -406,7 +405,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S6W4459DDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FLEXR/Info.plist;
@@ -456,6 +455,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0AD107D02EDE02A800642CC2 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		0AD107D22EDE02A800642CC2 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		0AD107D42EDE02A800642CC2 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		0AD107D62EDE02A800642CC2 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AD107CF2EDE02A800642CC2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 600 /* Project object */;
 }

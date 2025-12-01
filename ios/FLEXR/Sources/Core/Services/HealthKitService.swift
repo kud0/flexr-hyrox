@@ -148,20 +148,19 @@ class HealthKitService: ObservableObject {
             limit: HKObjectQueryNoLimit,
             sortDescriptors: [sortDescriptor]
         ) { [weak self] _, samples, error in
-            guard let self = self,
-                  let samples = samples as? [HKCategorySample] else { return }
+            guard let samples = samples as? [HKCategorySample] else { return }
 
-            let sleepData = self.processSleepSamples(samples)
+            let sleepData = Self.processSleepSamples(samples)
 
             Task { @MainActor in
-                self.sleepAnalysis = sleepData
+                self?.sleepAnalysis = sleepData
             }
         }
 
         healthStore.execute(query)
     }
 
-    private func processSleepSamples(_ samples: [HKCategorySample]) -> SleepData {
+    private nonisolated static func processSleepSamples(_ samples: [HKCategorySample]) -> SleepData {
         var totalSleepSeconds: TimeInterval = 0
         var deepSleepSeconds: TimeInterval = 0
         var remSleepSeconds: TimeInterval = 0
@@ -191,11 +190,11 @@ class HealthKitService: ObservableObject {
             totalDuration: totalSleepSeconds,
             deepSleepDuration: deepSleepSeconds,
             remSleepDuration: remSleepSeconds,
-            quality: calculateSleepQuality(total: totalSleepSeconds, deep: deepSleepSeconds, rem: remSleepSeconds)
+            quality: Self.calculateSleepQuality(total: totalSleepSeconds, deep: deepSleepSeconds, rem: remSleepSeconds)
         )
     }
 
-    private func calculateSleepQuality(total: TimeInterval, deep: TimeInterval, rem: TimeInterval) -> Double {
+    private nonisolated static func calculateSleepQuality(total: TimeInterval, deep: TimeInterval, rem: TimeInterval) -> Double {
         // Quality score based on:
         // - Total sleep (7-9 hours optimal)
         // - Deep sleep (13-23% of total)
@@ -226,11 +225,17 @@ class HealthKitService: ObservableObject {
             anchor: nil,
             limit: HKObjectQueryNoLimit
         ) { [weak self] query, samples, deletedObjects, anchor, error in
-            self?.processHeartRateSamples(samples)
+            guard let bpm = Self.extractHeartRate(from: samples) else { return }
+            Task { @MainActor in
+                self?.currentHeartRate = bpm
+            }
         }
 
         query.updateHandler = { [weak self] query, samples, deletedObjects, anchor, error in
-            self?.processHeartRateSamples(samples)
+            guard let bpm = Self.extractHeartRate(from: samples) else { return }
+            Task { @MainActor in
+                self?.currentHeartRate = bpm
+            }
         }
 
         heartRateQuery = query
@@ -244,15 +249,11 @@ class HealthKitService: ObservableObject {
         }
     }
 
-    private func processHeartRateSamples(_ samples: [HKSample]?) {
+    private nonisolated static func extractHeartRate(from samples: [HKSample]?) -> Double? {
         guard let samples = samples as? [HKQuantitySample],
-              let sample = samples.last else { return }
+              let sample = samples.last else { return nil }
 
-        let bpm = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
-
-        Task { @MainActor in
-            self.currentHeartRate = bpm
-        }
+        return sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
     }
 
     // MARK: - Write Workout Data
