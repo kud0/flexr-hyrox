@@ -26,6 +26,16 @@
 	<string>FLEXR needs access to your health data to track workouts, monitor heart rate, and provide personalized HYROX training recommendations.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>FLEXR needs to save your workout data to Apple Health to track your progress over time.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>FLEXR needs access to your camera to record workout videos with performance overlays.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>FLEXR needs access to your microphone to record audio with your workout videos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FLEXR needs access to save your workout videos to your Photos library.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FLEXR tracks your running route to provide accurate distance, pace, and elevation data for your personal training analytics.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>FLEXR needs location access to track your outdoor runs and provide detailed route analytics.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -58,6 +68,7 @@
 	<array>
 		<string>processing</string>
 		<string>remote-notification</string>
+		<string>location</string>
 	</array>
 </dict>
 </plist>

@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import HealthKit
 import CoreLocation
 import WatchKit
@@ -7,11 +8,15 @@ class WorkoutSessionManager: NSObject, ObservableObject {
     // MARK: - Published Properties
 
     @Published var isWorkoutActive = false
+    @Published var isPaused = false
+    @Published var showCompleteSummary = false
+    @Published var completedSummary: WorkoutCompleteSummary?
     @Published var currentSession: WatchWorkoutSession?
     @Published var currentHeartRate: Int = 0
     @Published var currentPace: String = "--:--"
     @Published var currentSplit: String = "--:--"
     @Published var currentReps: Int = 0
+    @Published var currentDistance: Double = 0.0
     @Published var elapsedTime: TimeInterval = 0
 
     // MARK: - Private Properties
@@ -79,6 +84,9 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         currentSession = session
         session.startSegment(at: 0)
 
+        // Set shadow target for first segment (if available)
+        setShadowTargetForCurrentSegment(session: session)
+
         // Start HealthKit workout session
         startHealthKitSession()
 
@@ -97,6 +105,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         guard isWorkoutActive, let session = currentSession else { return }
 
         session.isPaused = true
+        isPaused = true
         workoutSession?.pause()
         stopElapsedTimer()
 
@@ -107,10 +116,19 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         guard isWorkoutActive, let session = currentSession else { return }
 
         session.isPaused = false
+        isPaused = false
         workoutSession?.resume()
         startElapsedTimer()
 
         print("▶️ Workout resumed")
+    }
+
+    func togglePause() {
+        if isPaused {
+            resumeWorkout()
+        } else {
+            pauseWorkout()
+        }
     }
 
     func endWorkout() {
@@ -125,13 +143,25 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         stopElapsedTimer()
         stopMetricsCollection()
 
-        // Generate and send summary
+        // Generate summary for watch display
+        completedSummary = WorkoutCompleteSummary(from: session)
+        showCompleteSummary = true
+
+        // Generate and send summary to iPhone
         let summary = session.generateSummary()
         PhoneConnectivity.shared.sendWorkoutSummary(summary)
 
         isWorkoutActive = false
 
         print("✅ Workout ended")
+    }
+
+    func dismissCompleteSummary() {
+        showCompleteSummary = false
+        completedSummary = nil
+        currentSession = nil
+
+        print("✅ Summary dismissed")
     }
 
     // MARK: - Segment Management
@@ -145,7 +175,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
         if let segment = session.currentSegment {
             let completion = SegmentCompletion(
                 segmentIndex: session.currentSegmentIndex,
-                segmentName: segment.name,
+                segmentName: segment.displayName,
                 completionTime: session.segmentElapsedTime,
                 averageHeartRate: session.averageHeartRate,
                 maxHeartRate: session.maxHeartRate
@@ -309,7 +339,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
 
     private func startLocationTracking() {
         guard let segment = currentSession?.currentSegment,
-              segment.type == .run else { return }
+              segment.segmentType == .run else { return }
 
         locationManager?.startUpdatingLocation()
     }
@@ -322,6 +352,9 @@ class WorkoutSessionManager: NSObject, ObservableObject {
 
             DispatchQueue.main.async {
                 self.elapsedTime = session.segmentElapsedTime
+
+                // Update shadow runner position
+                session.updateShadowRunner(elapsedSegmentTime: session.segmentElapsedTime)
             }
         }
     }
@@ -341,7 +374,7 @@ class WorkoutSessionManager: NSObject, ObservableObject {
             segmentElapsed: session.segmentElapsedTime,
             totalElapsed: session.totalElapsedTime,
             heartRate: currentHeartRate,
-            pace: session.currentSegment?.type == .run ? session.currentPace : nil,
+            pace: session.currentSegment?.segmentType == .run ? session.currentPace : nil,
             distance: totalDistance,
             reps: currentReps
         )
@@ -398,6 +431,7 @@ extension WorkoutSessionManager: HKLiveWorkoutBuilderDelegate {
             case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
                 let distance = statistics.sumQuantity()?.doubleValue(for: .meter()) ?? 0
                 self.totalDistance = distance
+                self.currentDistance = distance
                 self.currentSession?.updateDistance(distance)
 
             default:
@@ -412,7 +446,15 @@ extension WorkoutSessionManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last,
               let session = currentSession,
-              session.currentSegment?.type == .run else { return }
+              session.currentSegment?.segmentType == .run else { return }
+
+        // Filter out inaccurate GPS readings (horizontal accuracy > 50m)
+        let accurateLocations = locations.filter { $0.horizontalAccuracy <= 50 && $0.horizontalAccuracy > 0 }
+
+        // Store GPS coordinates for route tracking
+        if !accurateLocations.isEmpty {
+            session.routeCoordinates.append(contentsOf: accurateLocations)
+        }
 
         if let lastLocation = lastLocation {
             let distance = location.distance(from: lastLocation)
@@ -435,5 +477,36 @@ extension WorkoutSessionManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("❌ Location tracking failed: \(error.localizedDescription)")
+    }
+
+    // MARK: - Shadow Runner Helpers
+
+    /// Sets shadow target time for the current segment
+    /// Uses segment's target duration/distance to calculate expected time
+    private func setShadowTargetForCurrentSegment(session: WatchWorkoutSession) {
+        guard session.currentSegmentIndex < session.segments.count else { return }
+
+        let segment = session.segments[session.currentSegmentIndex]
+
+        // Calculate target time based on segment type
+        var targetTime: TimeInterval?
+
+        if segment.segmentType == .run {
+            // For runs, calculate based on target distance and estimated pace
+            if let targetDistance = segment.targetDistance {
+                // Assume 5:00/km pace as default target (can be customized later)
+                let targetPacePerKm: TimeInterval = 5.0 * 60 // 5 minutes per km
+                targetTime = (targetDistance / 1000.0) * targetPacePerKm
+            }
+        } else {
+            // For stations and other segments, use target duration
+            targetTime = segment.targetDuration
+        }
+
+        // Set the shadow target
+        if let targetTime = targetTime {
+            session.setShadowTarget(targetTime)
+            print("🎯 Shadow target set: \(Int(targetTime))s for \(segment.displayName)")
+        }
     }
 }

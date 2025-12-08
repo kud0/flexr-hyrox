@@ -1,5 +1,7 @@
 import Foundation
+import Combine
 import HealthKit
+import CoreLocation
 
 /// Represents the active workout session state on Apple Watch
 class WatchWorkoutSession: ObservableObject, Codable {
@@ -28,6 +30,14 @@ class WatchWorkoutSession: ObservableObject, Codable {
 
     // Segment-specific metrics
     @Published var segmentMetrics: [SegmentMetrics] = []
+
+    // GPS route tracking
+    var routeCoordinates: [CLLocation] = []
+
+    // Shadow Runner (Colin McRae style ghost racer)
+    @Published var shadowTargetTime: TimeInterval? // Target time for current segment
+    @Published var shadowProgress: Double = 0.0 // 0.0 to 1.0
+    @Published var timeDifferenceFromShadow: TimeInterval = 0.0 // +ahead, -behind
 
     // Haptic feedback state
     @Published var shouldTriggerHaptic: HapticFeedbackType?
@@ -162,14 +172,14 @@ class WatchWorkoutSession: ObservableObject, Codable {
         // Record segment metrics
         let metrics = SegmentMetrics(
             segmentId: segment.id,
-            segmentName: segment.name,
-            segmentType: segment.type,
+            segmentName: segment.displayName,
+            segmentType: segment.segmentType,
             duration: duration,
             averageHeartRate: calculateSegmentAverageHR(),
             maxHeartRate: maxHeartRate,
             distance: currentDistance > 0 ? currentDistance : nil,
             reps: currentReps > 0 ? currentReps : nil,
-            pace: segment.type == .run ? currentPace : nil
+            pace: segment.segmentType == .run ? currentPace : nil
         )
 
         segmentMetrics.append(metrics)
@@ -258,6 +268,9 @@ class WatchWorkoutSession: ObservableObject, Codable {
         let totalDistance = segmentMetrics.compactMap { $0.distance }.reduce(0, +)
         let compromisedRuns = detectCompromisedRuns()
 
+        // Note: Route data is available in routeCoordinates but not included in summary
+        // Can be accessed separately via RouteData.from(locations: routeCoordinates) if needed
+
         return WorkoutSummary(
             workoutName: workoutName,
             totalTime: totalTime,
@@ -303,6 +316,55 @@ class WatchWorkoutSession: ObservableObject, Codable {
         }
 
         return compromised
+    }
+
+    // MARK: - Shadow Runner Calculation
+
+    /// Update shadow runner position based on target time and current progress
+    /// Call this periodically during workout to update shadow position
+    func updateShadowRunner(elapsedSegmentTime: TimeInterval) {
+        guard let targetTime = shadowTargetTime, targetTime > 0 else {
+            shadowProgress = 0
+            timeDifferenceFromShadow = 0
+            return
+        }
+
+        // Calculate where shadow should be based on target time
+        shadowProgress = min(elapsedSegmentTime / targetTime, 1.0)
+
+        // Calculate time difference (positive = user ahead, negative = user behind)
+        let currentSegment = segments[currentSegmentIndex]
+
+        // Determine user's actual progress based on segment type
+        let userProgress: Double
+        if currentSegment.segmentType == .run {
+            // For runs, use distance-based progress
+            if let targetDistance = currentSegment.targetDistance, targetDistance > 0 {
+                userProgress = currentDistance / targetDistance
+            } else {
+                userProgress = elapsedSegmentTime / targetTime
+            }
+        } else {
+            // For stations/other segments, use time-based progress
+            if let targetDuration = currentSegment.targetDuration {
+                userProgress = elapsedSegmentTime / targetDuration
+            } else {
+                userProgress = shadowProgress // fallback to time-based
+            }
+        }
+
+        // Time difference calculation
+        // If user is ahead: positive value
+        // If shadow is ahead: negative value
+        let shadowElapsedTime = elapsedSegmentTime // actual elapsed time
+        let expectedElapsedTime = shadowProgress * targetTime // where shadow thinks we should be
+        timeDifferenceFromShadow = shadowElapsedTime - expectedElapsedTime
+    }
+
+    /// Set the target time for the current segment (used for shadow runner)
+    /// - Parameter targetTime: The target/best time to race against
+    func setShadowTarget(_ targetTime: TimeInterval) {
+        self.shadowTargetTime = targetTime
     }
 }
 

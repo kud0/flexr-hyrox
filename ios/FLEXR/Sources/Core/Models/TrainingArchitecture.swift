@@ -217,7 +217,7 @@ enum Equipment: String, Codable, CaseIterable {
     var icon: String {
         switch self {
         case .skiErg: return "figure.skiing.downhill"
-        case .rower: return "figure.rowing"
+        case .rower: return "oar.2.crossed"
         case .sled: return "figure.strengthtraining.traditional"
         case .wallBalls: return "circle.fill"
         case .sandbag: return "bag.fill"

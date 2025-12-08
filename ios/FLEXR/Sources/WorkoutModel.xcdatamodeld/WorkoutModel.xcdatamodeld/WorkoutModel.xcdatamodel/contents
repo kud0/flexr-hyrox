@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="WorkoutEntity" representedClassName="WorkoutEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="activeCalories" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="averageHeartRate" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="maxHeartRate" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="segmentsCompleted" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="syncedToBackend" optional="NO" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="totalDistance" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalSegments" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalTime" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="workoutDate" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="workoutName" optional="NO" attributeType="String"/>
+        <relationship name="compromisedRuns" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CompromisedRunEntity" inverseName="workout" inverseEntity="CompromisedRunEntity"/>
+        <relationship name="segments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SegmentEntity" inverseName="workout" inverseEntity="SegmentEntity"/>
+    </entity>
+    <entity name="SegmentEntity" representedClassName="SegmentEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="averageHeartRate" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="caloriesBurned" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="completedAt" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distance" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="duration" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="segmentIndex" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="segmentName" optional="NO" attributeType="String"/>
+        <attribute name="segmentType" optional="NO" attributeType="String"/>
+        <relationship name="workout" optional="NO" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="segments" inverseEntity="WorkoutEntity"/>
+    </entity>
+    <entity name="CompromisedRunEntity" representedClassName="CompromisedRunEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="actualPace" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="degradation" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="expectedPace" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="segmentIndex" optional="NO" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="segmentName" optional="NO" attributeType="String"/>
+        <relationship name="workout" optional="NO" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="compromisedRuns" inverseEntity="WorkoutEntity"/>
+    </entity>
+</model>

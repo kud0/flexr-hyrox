@@ -50,6 +50,7 @@
 		0A1A97F12EE036480052F892 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A97EC2EE036480052F892 /* WorkoutSummary.swift */; };
 		0A1A97F42EE036480052F892 /* PlannedWorkoutSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1A97E72EE036480052F892 /* PlannedWorkoutSegment.swift */; };
 		0A65975F2EE07B8000DD44A3 /* TrainingPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A65975E2EE07B8000DD44A3 /* TrainingPreferencesView.swift */; };
+		0AA674A92EE7313000B09614 /* WorkoutSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA674A82EE7313000B09614 /* WorkoutSection.swift */; };
 		0AD107D12EDE02A800642CC2 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D02EDE02A800642CC2 /* Auth */; };
 		0AD107D32EDE02A800642CC2 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D22EDE02A800642CC2 /* Functions */; };
 		0AD107D52EDE02A800642CC2 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 0AD107D42EDE02A800642CC2 /* PostgREST */; };
@@ -82,7 +83,7 @@
 		3D00F3D867DC3EA08AE76C01 /* NeonEdgesOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02A16AD9AFD10AC7EB409F7 /* NeonEdgesOverlay.swift */; };
 		3D491C7A1B6671669036E548 /* WorkoutCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456E0CD8981922E4D2042FE7 /* WorkoutCompleteView.swift */; };
 		3FBDDDCCEC2F17B9B77E8C8C /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD6C7240D27FD79B1226E86 /* WorkoutView.swift */; };
-		4170915F46179AEC1D88CC63 /* GymLeaderboardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E56070839D7C81C80A9CB6 /* GymLeaderboardsView.swift */; };
+		4170915F46179AEC1D88CC63 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E56070839D7C81C80A9CB6 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift */; };
 		48E616105E9A0DBC04A7A4B7 /* InsightBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED98282A423D375FCF6138 /* InsightBanner.swift */; };
 		4B4D61A59C528B6314485F64 /* RelationshipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEDD8A11A860F09E1359A7E /* RelationshipService.swift */; };
 		52F7E0E84B5971C21EEFDDCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E52486B728323723DEEF97 /* ContentView.swift */; };
@@ -93,7 +94,7 @@
 		62498DA631C6F7DC83BE2010 /* ActiveWorkoutBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB319BD8495413101C60EB62 /* ActiveWorkoutBoardView.swift */; };
 		62A69A10293D36E2F8162BD1 /* TripodModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E5972DC4C25AA02091BC01 /* TripodModeView.swift */; };
 		64DF9F19D96D1F0CCBC16A76 /* ContributionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9A2DCCB7A4C9C374A167E /* ContributionBar.swift */; };
-		6997D5CF84F5170E9D56A697 /* UserProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28EEF9753FBAD8348D322ED /* UserProfileDetailView.swift */; };
+		6997D5CF84F5170E9D56A697 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28EEF9753FBAD8348D322ED /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift */; };
 		6ADF96E14F5E3288B681C5ED /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109 /* DesignSystem.swift */; };
 		70FCA7BBBDA6F08F4C606B68 /* WatchWorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB99300A7F5CAE6866F4F850 /* WatchWorkoutSession.swift */; };
 		710C57B9510BFDCEFC504951 /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D00153BA80FB692D3162193 /* FeedbackService.swift */; };
@@ -104,7 +105,7 @@
 		84EAE08024F9F48FF3B44775 /* WatchPlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4348B7E4921BBA072BBB930 /* WatchPlanService.swift */; };
 		858B249C9E8519E530BF7A7D /* UserStatsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858B249B9E8519E530BF7A7C /* UserStatsService.swift */; };
 		872F3AFFD0E98FF7982CC4E6 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC81B9D6D6E6B6F15DCD0AC6 /* Gym.swift */; };
-		8A2349012544CAE047FF5291 /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74AEC263AC59F23BAB9D1EB /* GymDetailView.swift */; };
+		8A2349012544CAE047FF5291 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74AEC263AC59F23BAB9D1EB /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift */; };
 		913D5150D0D1358C0A96994D /* RunningStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF6F6276B07D79E53BF774C /* RunningStatsView.swift */; };
 		93CC3C3DEC5BAF9E0C8EF31B /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92204F7662CF0E83116730 /* PlanService.swift */; };
 		971EFB2FAD8A64C39B4A02E3 /* MetricBreakdownCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C0B4344776BE41FDDAD4FD /* MetricBreakdownCard.swift */; };
@@ -150,7 +151,7 @@
 		DEC350B0F2C62232594556B7 /* QuickWorkoutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83718DD6F26FD65467EA6951 /* QuickWorkoutSheet.swift */; };
 		E7216DE90FD8493EFC571BB4 /* ReadinessHeroCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E500E7389F51C0ACA2C912F /* ReadinessHeroCard.swift */; };
 		E83BA246B218CCF2FA875F04 /* HeroMetricCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3612D5BBA8B5AE363E7F21 /* HeroMetricCard.swift */; };
-		EA233C000342FDA9217F9361 /* FriendsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B713B73121069741A6B79F /* FriendsListView.swift */; };
+		EA233C000342FDA9217F9361 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B713B73121069741A6B79F /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift */; };
 		EC8E7F5CA404B8F42FE249B2 /* UpcomingSegmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ACB57F1727DA2792AF4F19 /* UpcomingSegmentCard.swift */; };
 		ECA4F98ED177EFDF83A9C41B /* PaceDegradationGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0501DC7F074ADCDAA2402D3 /* PaceDegradationGraph.swift */; };
 		ENHCARD002 /* EnhancedRunCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ENHCARD001 /* EnhancedRunCard.swift */; };
@@ -159,10 +160,10 @@
 		F3F60CEC83564ED844C04580 /* GymCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC1BD6371F5395421CFD /* GymCreationView.swift */; };
 		F4D45418DB6AE26E5EF6F980 /* HRZonesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF20A8266A8FFE166B16A30 /* HRZonesCard.swift */; };
 		F669B0D1E539E8B411A3B005 /* MockSocialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E172B3923D9A92E843D239 /* MockSocialData.swift */; };
-		F7FA66E3A1AC3A2431E8C335 /* GymMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCABB189293D0ED749C978 /* GymMembersView.swift */; };
+		F7FA66E3A1AC3A2431E8C335 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCABB189293D0ED749C978 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift */; };
 		F84405333C875C983C7E9704 /* WorkoutMissionControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97149261FF91DA85DC14A69 /* WorkoutMissionControlView.swift */; };
 		F8E5CBC3AA29B915A4593891 /* PlanGeneratingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F8ED9BE86B4040C84031A /* PlanGeneratingView.swift */; };
-		F98CD7E3D2278BA07B943707 /* GymSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C546404DE65CE34432D850FA /* GymSearchView.swift */; };
+		F98CD7E3D2278BA07B943707 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C546404DE65CE34432D850FA /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift */; };
 		F9BF8C8C08D089F8AAFEDFF5 /* WeeklyTrainingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439DC56A0E29FAF7BE00CA6E /* WeeklyTrainingDetailView.swift */; };
 		FAF1895E471E5FEFDB625173 /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD3BAE1DECE1967CB10FBF6 /* SocialService.swift */; };
 		FB7B400531DEDB9CEFCBAB65 /* AnalyticsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423AE57747FC43581E5A006D /* AnalyticsHomeView.swift */; };
@@ -240,6 +241,7 @@
 		0A1A97EB2EE036480052F892 /* WorkoutSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSegment.swift; sourceTree = "<group>"; };
 		0A1A97EC2EE036480052F892 /* WorkoutSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummary.swift; sourceTree = "<group>"; };
 		0A65975E2EE07B8000DD44A3 /* TrainingPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPreferencesView.swift; sourceTree = "<group>"; };
+		0AA674A82EE7313000B09614 /* WorkoutSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSection.swift; sourceTree = "<group>"; };
 		0AD10092EE8EE585EAA6181A /* ProjectedFinishBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProjectedFinishBanner.swift; sourceTree = "<group>"; };
 		0AD107F02EDE4F4700642CC2 /* FLEXRWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FLEXRWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD41DF8FD9EFB36419FDF52 /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutSummaryView.swift; path = FLEXRWatch/Sources/Features/Workout/WorkoutSummaryView.swift; sourceTree = "<group>"; };
@@ -336,7 +338,7 @@
 		949EC9A169B394C917DDF6D6 /* AnalyticsCategoryCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnalyticsCategoryCard.swift; sourceTree = "<group>"; };
 		99A0474E982875042C3F25AD /* WorkoutDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutDetailView.swift; path = Sources/Features/Workout/WorkoutDetailView.swift; sourceTree = "<group>"; };
 		9BD6C7240D27FD79B1226E86 /* WorkoutView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutView.swift; path = FLEXRWatch/Sources/Features/Workout/WorkoutView.swift; sourceTree = "<group>"; };
-		A3E56070839D7C81C80A9CB6 /* GymLeaderboardsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift; sourceTree = "<absolute>"; };
+		A3E56070839D7C81C80A9CB6 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift; sourceTree = "<absolute>"; };
 		A56D73AB5A32F3AA25833AB2 /* TrainingCycleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrainingCycleView.swift; sourceTree = "<group>"; };
 		A5E347D9C681F50C01ABD00F /* OnboardingCompletionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingCompletionView.swift; path = FLEXR/Sources/Features/Onboarding/OnboardingCompletionView.swift; sourceTree = "<group>"; };
 		A7F137253B1DC03B9F05E3EF /* AllStationsOverviewView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AllStationsOverviewView.swift; sourceTree = "<group>"; };
@@ -368,15 +370,15 @@
 		BC81B9D6D6E6B6F15DCD0AC6 /* Gym.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		BFF6F6276B07D79E53BF774C /* RunningStatsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RunningStatsView.swift; sourceTree = "<group>"; };
 		C09FF885DB9FC6EA2D356167 /* RacePredictionHeroCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RacePredictionHeroCard.swift; sourceTree = "<group>"; };
-		C546404DE65CE34432D850FA /* GymSearchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift; sourceTree = "<absolute>"; };
+		C546404DE65CE34432D850FA /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift; sourceTree = "<absolute>"; };
 		CB772A1B5A1C4C474CC82428 /* SegmentTransitionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SegmentTransitionView.swift; path = FLEXRWatch/Sources/Features/Workout/SegmentTransitionView.swift; sourceTree = "<group>"; };
 		CD20AD92B271AEC5839CAC4C /* OnboardingStep5_PerformanceNumbers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingStep5_PerformanceNumbers.swift; path = FLEXR/Sources/Features/Onboarding/OnboardingStep5_PerformanceNumbers.swift; sourceTree = "<group>"; };
 		CDF8BE4891FDC79B0B6C7090 /* GymService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GymService.swift; sourceTree = "<group>"; };
 		CEA70A3B615B3EEB0F8A63A3 /* AIInsightsCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AIInsightsCard.swift; sourceTree = "<group>"; };
 		D01694347151B062E400736D /* HRZonesCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HRZonesCard.swift; sourceTree = "<group>"; };
-		D28EEF9753FBAD8348D322ED /* UserProfileDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift; sourceTree = "<absolute>"; };
+		D28EEF9753FBAD8348D322ED /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift; sourceTree = "<absolute>"; };
 		DB7601E38638BB4622AFC836 /* RacePredictionTimelineView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RacePredictionTimelineView.swift; sourceTree = "<group>"; };
-		DCFCABB189293D0ED749C978 /* GymMembersView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift; sourceTree = "<absolute>"; };
+		DCFCABB189293D0ED749C978 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift; sourceTree = "<absolute>"; };
 		DFF20A8266A8FFE166B16A30 /* HRZonesCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HRZonesCard.swift; path = FLEXR/Sources/Features/Workout/MissionControl/Components/HRZonesCard.swift; sourceTree = "<group>"; };
 		E02A16AD9AFD10AC7EB409F7 /* NeonEdgesOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NeonEdgesOverlay.swift; sourceTree = "<group>"; };
 		E0501DC7F074ADCDAA2402D3 /* PaceDegradationGraph.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PaceDegradationGraph.swift; path = FLEXR/Sources/Features/Workout/MissionControl/Components/PaceDegradationGraph.swift; sourceTree = "<group>"; };
@@ -384,13 +386,13 @@
 		E3C4C559B941233CCF6C206D /* WorkoutPreviewView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutPreviewView.swift; path = FLEXRWatch/Sources/Views/WorkoutPreviewView.swift; sourceTree = "<group>"; };
 		E6E172B3923D9A92E843D239 /* MockSocialData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MockSocialData.swift; sourceTree = "<group>"; };
 		E76A7B2A157CEB1D3CBBC02F /* StationPerformanceDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StationPerformanceDetailView.swift; sourceTree = "<group>"; };
-		E8B713B73121069741A6B79F /* FriendsListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift; sourceTree = "<absolute>"; };
+		E8B713B73121069741A6B79F /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift; sourceTree = "<absolute>"; };
 		EBED98282A423D375FCF6138 /* InsightBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InsightBanner.swift; sourceTree = "<group>"; };
 		EC8EE90722AE8CB27C020771 /* TrainingLoadDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrainingLoadDetailView.swift; sourceTree = "<group>"; };
 		EC9DC8FD6DEE6BD77E181553 /* TripodModeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TripodModeView.swift; sourceTree = "<group>"; };
 		ENHCARD001 /* EnhancedRunCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedRunCard.swift; sourceTree = "<group>"; };
 		F4348B7E4921BBA072BBB930 /* WatchPlanService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WatchPlanService.swift; path = FLEXRWatch/Sources/Services/WatchPlanService.swift; sourceTree = "<group>"; };
-		F74AEC263AC59F23BAB9D1EB /* GymDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift; sourceTree = "<absolute>"; };
+		F74AEC263AC59F23BAB9D1EB /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift; sourceTree = "<absolute>"; };
 		FAAB48BB28C47D0BB9FBC680 /* OnboardingStep1_BasicProfile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingStep1_BasicProfile.swift; path = FLEXR/Sources/Features/Onboarding/OnboardingStep1_BasicProfile.swift; sourceTree = "<group>"; };
 		FAFEC7EB764562FC9A55C0E6 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
 		FBD3BAE1DECE1967CB10FBF6 /* SocialService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
@@ -414,17 +416,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0AD107F12EDE4F4700642CC2 /* FLEXRWatch Watch App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = "FLEXRWatch Watch App";
-			sourceTree = "<group>";
-		};
+		0AD107F12EDE4F4700642CC2 /* FLEXRWatch Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "FLEXRWatch Watch App"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,8 +446,8 @@
 		05D7469BF3CCDBCB9D0C184D /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				E8B713B73121069741A6B79F /* FriendsListView.swift */,
-				D28EEF9753FBAD8348D322ED /* UserProfileDetailView.swift */,
+				E8B713B73121069741A6B79F /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift */,
+				D28EEF9753FBAD8348D322ED /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -497,6 +489,7 @@
 		0A1A97ED2EE036480052F892 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0AA674A82EE7313000B09614 /* WorkoutSection.swift */,
 				0A1A97E52EE036480052F892 /* OnboardingData.swift */,
 				0A1A97E62EE036480052F892 /* PerformanceProfile.swift */,
 				0A1A97E72EE036480052F892 /* PlannedWorkoutSegment.swift */,
@@ -533,10 +526,10 @@
 		2FF57D30F5059D1055A56554 /* Gym */ = {
 			isa = PBXGroup;
 			children = (
-				C546404DE65CE34432D850FA /* GymSearchView.swift */,
-				F74AEC263AC59F23BAB9D1EB /* GymDetailView.swift */,
-				DCFCABB189293D0ED749C978 /* GymMembersView.swift */,
-				A3E56070839D7C81C80A9CB6 /* GymLeaderboardsView.swift */,
+				C546404DE65CE34432D850FA /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift */,
+				F74AEC263AC59F23BAB9D1EB /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift */,
+				DCFCABB189293D0ED749C978 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift */,
+				A3E56070839D7C81C80A9CB6 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift */,
 				18D2BC1BD6371F5395421CFD /* GymCreationView.swift */,
 				654A8658D25E2B168A7ABF39 /* GymAdminView.swift */,
 			);
@@ -971,7 +964,6 @@
 				C09FF885DB9FC6EA2D356167 /* RacePredictionHeroCard.swift */,
 				33940DBC70607D7FFD4F1FE3 /* WeeklyTrainingHeroCard.swift */,
 			);
-			name = HeroCards;
 			path = HeroCards;
 			sourceTree = "<group>";
 		};
@@ -1158,6 +1150,7 @@
 				006 /* WorkoutSegment.swift in Sources */,
 				007 /* PerformanceProfile.swift in Sources */,
 				RUNNING002 /* RunningSession.swift in Sources */,
+				0AA674A92EE7313000B09614 /* WorkoutSection.swift in Sources */,
 				ROUTEDATA002 /* RouteData.swift in Sources */,
 				LOCTRACK002 /* LocationTrackingService.swift in Sources */,
 				HKRUNNING002 /* HealthKitRunningImport.swift in Sources */,
@@ -1246,13 +1239,13 @@
 				3CF27196BF54C270C3301A1F /* CustomizableOverlay.swift in Sources */,
 				39EC504E2C3FA3BE741B945B /* VideoRecordingService.swift in Sources */,
 				39DEFE3C081B3B6B56AD0991 /* CleanWorkoutOverlay.swift in Sources */,
-				F98CD7E3D2278BA07B943707 /* GymSearchView.swift in Sources */,
-				8A2349012544CAE047FF5291 /* GymDetailView.swift in Sources */,
-				F7FA66E3A1AC3A2431E8C335 /* GymMembersView.swift in Sources */,
-				4170915F46179AEC1D88CC63 /* GymLeaderboardsView.swift in Sources */,
-				EA233C000342FDA9217F9361 /* FriendsListView.swift in Sources */,
+				F98CD7E3D2278BA07B943707 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymSearchView.swift in Sources */,
+				8A2349012544CAE047FF5291 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymDetailView.swift in Sources */,
+				F7FA66E3A1AC3A2431E8C335 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymMembersView.swift in Sources */,
+				4170915F46179AEC1D88CC63 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Gym/GymLeaderboardsView.swift in Sources */,
+				EA233C000342FDA9217F9361 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/FriendsListView.swift in Sources */,
 				F669B0D1E539E8B411A3B005 /* MockSocialData.swift in Sources */,
-				6997D5CF84F5170E9D56A697 /* UserProfileDetailView.swift in Sources */,
+				6997D5CF84F5170E9D56A697 /* /Users/alexsolecarretero/Public/projects/FLEXR/ios/FLEXR/Sources/Features/Social/Friends/UserProfileDetailView.swift in Sources */,
 				F3F60CEC83564ED844C04580 /* GymCreationView.swift in Sources */,
 				5A1BAAE6D71824936B3B9B09 /* GymAdminView.swift in Sources */,
 				78ABBA1E37B8262984FD2434 /* WorkoutFeedback.swift in Sources */,

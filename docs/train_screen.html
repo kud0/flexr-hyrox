@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyrox Training Plan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: #161618;
+            --bg-card-hover: #1C1C1E;
+            --bg-accent: #2C2C2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8E8E93;
+            --text-tertiary: #48484A;
+            --accent-blue: #0A84FF;
+            --accent-gold: #FFD60A;
+            --accent-green: #30D158;
+            --accent-red: #FF453A;
+            --ai-gradient: linear-gradient(135deg, #0A84FF 0%, #BF5AF2 100%);
+            --glass-bg: rgba(22, 22, 24, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            padding-bottom: 100px;
+            /* Space for bottom nav */
+        }
+
+        /* Utilities */
+        .container {
+            padding: 0 20px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-sm {
+            font-size: 13px;
+        }
+
+        .text-md {
+            font-size: 15px;
+        }
+
+        .text-lg {
+            font-size: 17px;
+        }
+
+        .text-xl {
+            font-size: 20px;
+        }
+
+        .text-2xl {
+            font-size: 28px;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+
+        .text-blue {
+            color: var(--accent-blue);
+        }
+
+        .text-gold {
+            color: var(--accent-gold);
+        }
+
+        /* Header */
+        header {
+            padding-top: 60px;
+            padding-bottom: 20px;
+            background: linear-gradient(180deg, rgba(5, 5, 5, 1) 0%, rgba(5, 5, 5, 0.9) 80%, rgba(5, 5, 5, 0) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .week-selector {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .week-selector::-webkit-scrollbar {
+            display: none;
+        }
+
+        .week-pill {
+            padding: 8px 16px;
+            background: var(--bg-accent);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .week-pill.active {
+            background: rgba(10, 132, 255, 0.15);
+            color: var(--accent-blue);
+            border-color: rgba(10, 132, 255, 0.3);
+        }
+
+        /* Hero / Weekly Progress */
+        .hero-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .progress-ring-container {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Simple CSS Ring for demo */
+        .ring {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 6px solid var(--bg-accent);
+            border-top-color: var(--accent-blue);
+            border-right-color: var(--accent-blue);
+            transform: rotate(-45deg);
+        }
+
+        .ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .phase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(10, 132, 255, 0.1);
+            border-radius: 8px;
+            color: var(--accent-blue);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+
+        .phase-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            box-shadow: 0 0 8px var(--accent-blue);
+        }
+
+        /* Daily Schedule */
+        .day-group {
+            margin-bottom: 32px;
+        }
+
+        .day-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            position: sticky;
+            top: 130px;
+            /* Adjust based on header height */
+            z-index: 5;
+            padding: 8px 0;
+            background: var(--bg-body);
+            /* To cover content when scrolling */
+        }
+
+        .day-badge {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--bg-body);
+            background: var(--text-primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .day-badge.future {
+            background: var(--bg-accent);
+            color: var(--text-secondary);
+        }
+
+        .session-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.2s ease, background 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .session-card:active {
+            transform: scale(0.98);
+            background: var(--bg-card-hover);
+        }
+
+        /* Left accent bar for session type */
+        .session-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .type-run::before {
+            background: var(--accent-blue);
+        }
+
+        .type-strength::before {
+            background: var(--accent-gold);
+        }
+
+        .type-hybrid::before {
+            background: var(--accent-red);
+        }
+
+        .session-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 16px;
+        }
+
+        .bg-icon-run {
+            background: rgba(10, 132, 255, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .bg-icon-strength {
+            background: rgba(255, 214, 10, 0.1);
+            color: var(--accent-gold);
+        }
+
+        .bg-icon-hybrid {
+            background: rgba(255, 69, 58, 0.1);
+            color: var(--accent-red);
+        }
+
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--bg-body);
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+        }
+
+        /* AI Insight Component */
+        .ai-insight {
+            margin-top: 16px;
+            background: rgba(10, 132, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid rgba(10, 132, 255, 0.15);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .ai-icon {
+            background: var(--ai-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(28, 28, 30, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 24px;
+            border-radius: 32px;
+            display: flex;
+            gap: 32px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-enter {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        /* Start Button */
+        .btn-start {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            margin-top: 16px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+        }
+
+        .btn-start:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(10, 132, 255, 0.2);
+        }
+
+        .btn-start i {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container">
+        <div class="flex-between" style="margin-bottom: 16px;">
+            <div>
+                <div class="text-sm text-secondary font-medium">DEC 1 - DEC 7</div>
+                <h1 class="text-2xl font-bold">Training Plan</h1>
+            </div>
+        </div>
+
+        <!-- Week Selector -->
+        <div class="week-selector">
+            <div class="week-pill active">Week 1</div>
+            <div class="week-pill">Week 2</div>
+            <div class="week-pill">Week 3</div>
+            <div class="week-pill">Week 4</div>
+            <div class="week-pill">Week 5</div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Hero: Weekly Summary -->
+        <section class="hero-section animate-enter">
+            <div class="progress-card">
+                <div class="flex-col">
+                    <span class="text-secondary text-sm font-medium">CURRENT PHASE</span>
+                    <div class="phase-badge">
+                        <div class="phase-dot"></div>
+                        Base Building
+                    </div>
+                    <p class="text-secondary text-sm" style="margin-top: 12px; max-width: 70%;">
+                        Aerobic base building with HYROX movement patterns.
+                    </p>
+                </div>
+                <div class="progress-ring-container">
+                    <div class="ring"></div>
+                    <div class="ring-text">0<span
+                            style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">/14</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day: Monday (Today) -->
+        <section class="day-group animate-enter" style="animation-delay: 0.1s;">
+            <div class="day-header">
+                <span class="day-badge">TODAY</span>
+                <span class="text-lg font-bold">Mon, 1 Dec</span>
+            </div>
+
+            <!-- Session 1 -->
+            <div class="session-card type-run">
+                <div class="flex-between" style="align-items: flex-start;">
+                    <div style="display: flex;">
+                        <div class="session-icon bg-icon-run">
+                            <i class="fa-solid fa-person-running"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Easy Long Run</h3>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <div class="meta-pill"><i class="fa-regular fa-clock"></i> 55 min</div>
+                                <div class="meta-pill" style="color: var(--accent-green);"><i
+                                        class="fa-solid fa-bolt"></i> Easy</div>
+                                <div class="meta-pill"><i class="fa-solid fa-list-ul"></i> 3 sets</div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-secondary text-sm"></i>
+                </div>
+
+                <!-- AI Insight -->
+                <div class="ai-insight">
+                    <i class="fa-solid fa-wand-magic-sparkles ai-icon"></i>
+                    <div>
+                        <div class="text-sm font-semibold" style="margin-bottom: 2px;">Coach Insight</div>
+                        <p class="text-sm text-secondary" style="line-height: 1.4;">
+                            Focus on keeping your heart rate in Zone 2. This session is key for building your aerobic
+                            engine for the upcoming season.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn-start">
+                    <i class="fa-solid fa-play"></i>
+                    Start Workout
+                </button>
+            </div>
+
+            <!-- Session 2 -->
+            <div class="session-card type-strength">
+                <div class="flex-between" style="align-items: flex-start;">
+                    <div style="display: flex;">
+                        <div class="session-icon bg-icon-strength">
+                            <i class="fa-solid fa-dumbbell"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Lower Body Strength</h3>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <div class="meta-pill"><i class="fa-regular fa-clock"></i> 60 min</div>
+                                <div class="meta-pill" style="color: var(--accent-gold);"><i
+                                        class="fa-solid fa-bolt"></i> Moderate</div>
+                                <div class="meta-pill"><i class="fa-solid fa-list-ul"></i> 7 exercises</div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-secondary text-sm"></i>
+                </div>
+
+                <button class="btn-start"
+                    style="background: var(--bg-accent); color: var(--text-primary); box-shadow: none; border: 1px solid var(--glass-border);">
+                    <i class="fa-solid fa-play"></i>
+                    Start Workout
+                </button>
+            </div>
+        </section>
+
+        <!-- Day: Tuesday -->
+        <section class="day-group animate-enter" style="animation-delay: 0.2s;">
+            <div class="day-header">
+                <span class="day-badge future">TUE</span>
+                <span class="text-lg font-bold text-secondary">2 Dec</span>
+            </div>
+
+            <div class="session-card type-run">
+                <div class="flex-between" style="align-items: flex-start;">
+                    <div style="display: flex;">
+                        <div class="session-icon bg-icon-run">
+                            <i class="fa-solid fa-person-running"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Aerobic Tempo Run</h3>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <div class="meta-pill"><i class="fa-regular fa-clock"></i> 45 min</div>
+                                <div class="meta-pill" style="color: var(--accent-gold);"><i
+                                        class="fa-solid fa-bolt"></i> Moderate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-secondary text-sm"></i>
+                </div>
+            </div>
+
+            <div class="session-card type-hybrid">
+                <div class="flex-between" style="align-items: flex-start;">
+                    <div style="display: flex;">
+                        <div class="session-icon bg-icon-hybrid">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Upper Body Pull Focus</h3>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <div class="meta-pill"><i class="fa-regular fa-clock"></i> 60 min</div>
+                                <div class="meta-pill" style="color: var(--accent-gold);"><i
+                                        class="fa-solid fa-bolt"></i> Moderate</div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-secondary text-sm"></i>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <div class="nav-item">
+            <i class="fa-regular fa-calendar"></i>
+            <span>Today</span>
+        </div>
+        <div class="nav-item active">
+            <i class="fa-solid fa-person-running"></i>
+            <span>Train</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Analytics</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </nav>
+
+</body>
+
+</html>

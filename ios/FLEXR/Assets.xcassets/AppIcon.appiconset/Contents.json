@@ -1,8 +1,57 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "platform" : "ios",
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 8.jpeg",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 6.jpeg",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 7.jpeg",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 5.jpeg",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 4.jpeg",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 3.jpeg",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 2.jpeg",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM 1.jpeg",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "Generated Image December 03, 2025 - 12_19AM.jpeg",
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
       "size" : "1024x1024"
     }
   ],

@@ -3,17 +3,38 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var connectivity: PhoneConnectivity
     @EnvironmentObject var workoutManager: WorkoutSessionManager
+    @Environment(WatchAuthService.self) var authService
+    @StateObject private var planService = WatchPlanService.shared
 
     @State private var selectedTab = 0
 
     var body: some View {
+        Group {
+            if authService.isSignedIn {
+                mainContent
+            } else {
+                WatchSignInView()
+            }
+        }
+        .onAppear {
+            connectivity.activateSession()
+            workoutManager.requestAuthorization()
+        }
+    }
+
+    private var mainContent: some View {
         TabView(selection: $selectedTab) {
-            // Active Workout or Start Screen
+            // Active Workout, Complete Summary, or Start Screen
             if workoutManager.isWorkoutActive {
                 WorkoutView()
                     .tag(0)
+            } else if workoutManager.showCompleteSummary, let summary = workoutManager.completedSummary {
+                WorkoutCompleteView(summary: summary) {
+                    workoutManager.dismissCompleteSummary()
+                }
+                .tag(0)
             } else {
-                StartWorkoutView()
+                TodaysWorkoutsView()
                     .tag(0)
             }
 
@@ -27,8 +48,10 @@ struct ContentView: View {
         }
         .tabViewStyle(.page)
         .onAppear {
-            connectivity.activateSession()
-            workoutManager.requestAuthorization()
+            // Fetch today's workouts from Supabase
+            Task {
+                await planService.fetchTodaysWorkouts()
+            }
         }
     }
 }
@@ -124,8 +147,10 @@ struct HistoryView: View {
     }
 }
 
-// MARK: - Settings View (Placeholder)
+// MARK: - Settings View
 struct SettingsView: View {
+    @Environment(WatchAuthService.self) var authService
+
     var body: some View {
         List {
             Section("Workout") {
@@ -137,6 +162,16 @@ struct SettingsView: View {
                 Toggle("Always-on display", isOn: .constant(true))
                 Toggle("Show pace zones", isOn: .constant(false))
             }
+
+            Section("Account") {
+                Button(role: .destructive) {
+                    Task {
+                        try? await authService.signOut()
+                    }
+                } label: {
+                    Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                }
+            }
         }
     }
 }
@@ -145,4 +180,5 @@ struct SettingsView: View {
     ContentView()
         .environmentObject(PhoneConnectivity())
         .environmentObject(WorkoutSessionManager())
+        .environment(WatchAuthService.shared)
 }

@@ -464,7 +464,7 @@ struct WorkoutRow: View {
     @State private var showingWorkoutDetail = false
     @State private var selectedWorkout: PlannedWorkout?
     @State private var isStartingWorkout = false
-    @State private var showingWorkoutExecution = false
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var healthKitService: HealthKitService
 
     init(workout: PlannedWorkout, isToday: Bool, isFirstUncompleted: Bool) {
@@ -603,12 +603,6 @@ struct WorkoutRow: View {
             PlannedWorkoutDetailView(workout: workout)
                 .environmentObject(healthKitService)
         }
-        .fullScreenCover(isPresented: $showingWorkoutExecution) {
-            if let convertedWorkout = convertToWorkout() {
-                WorkoutExecutionView(workout: convertedWorkout)
-                    .environmentObject(healthKitService)
-            }
-        }
     }
 
     private var workoutTypeColor: Color {
@@ -646,22 +640,35 @@ struct WorkoutRow: View {
         // Start HealthKit monitoring
         healthKitService.startLiveHeartRateMonitoring()
 
-        // Show workout execution after brief delay
+        // Convert and start workout via AppState
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             isStartingWorkout = false
-            showingWorkoutExecution = true
+            if let convertedWorkout = convertToWorkout() {
+                appState.beginWorkout(convertedWorkout)
+            }
         }
     }
 
     /// Convert PlannedWorkout to Workout for execution
     private func convertToWorkout() -> Workout? {
-        // Convert PlannedWorkoutSegments to WorkoutSegments
-        let workoutSegments: [WorkoutSegment] = (workout.segments ?? []).compactMap { plannedSegment in
-            // Convert PlannedSegmentType to SegmentType
+        guard let plannedSegments = workout.segments, !plannedSegments.isEmpty else {
+            return nil
+        }
+
+        // Group segments by type to build sections
+        let warmupSegs = plannedSegments.filter { $0.segmentType == .warmup }
+        let mainSegs = plannedSegments.filter { $0.segmentType == .main || $0.segmentType == .run || $0.segmentType == .station }
+        let cooldownSegs = plannedSegments.filter { $0.segmentType == .cooldown }
+
+        var allWorkoutSegments: [WorkoutSegment] = []
+        var sections: [WorkoutSection] = []
+
+        // Helper to convert PlannedWorkoutSegment to WorkoutSegment
+        func convert(_ planned: PlannedWorkoutSegment, sectionType: String, sectionLabel: String) -> WorkoutSegment {
             let segmentType: SegmentType
-            switch plannedSegment.segmentType {
+            switch planned.segmentType {
             case .warmup: segmentType = .warmup
-            case .main: segmentType = .run // Default main segments to run type
+            case .main: segmentType = .strength
             case .cooldown: segmentType = .cooldown
             case .rest: segmentType = .rest
             case .transition: segmentType = .transition
@@ -672,22 +679,71 @@ struct WorkoutRow: View {
             return WorkoutSegment(
                 workoutId: workout.id,
                 segmentType: segmentType,
-                stationType: plannedSegment.stationType.flatMap { StationType(rawValue: $0) },
-                targetDuration: plannedSegment.targetDurationSeconds.map { Double($0) },
-                targetDistance: plannedSegment.targetDistanceMeters.map { Double($0) },
-                targetReps: plannedSegment.targetReps,
-                targetPace: plannedSegment.targetPace
+                stationType: planned.stationType.flatMap { StationType(rawValue: $0) },
+                targetDuration: planned.targetDurationSeconds.map { Double($0) },
+                targetDistance: planned.targetDistanceMeters.map { Double($0) },
+                targetReps: planned.targetReps,
+                targetPace: planned.targetPace,
+                sets: planned.sets,
+                repsPerSet: planned.targetReps,
+                weightSuggestion: planned.intensityDescription,
+                sectionType: sectionType,
+                sectionLabel: sectionLabel
             )
+        }
+
+        // Build Warm-up section
+        if !warmupSegs.isEmpty {
+            let warmupWorkoutSegs = warmupSegs.map { convert($0, sectionType: "warmup", sectionLabel: "WARM-UP") }
+            allWorkoutSegments.append(contentsOf: warmupWorkoutSegs)
+
+            sections.append(WorkoutSection(
+                type: .warmup,
+                label: "WARM-UP",
+                format: nil,
+                formatDetails: nil,
+                segments: warmupWorkoutSegs
+            ))
+        }
+
+        // Build Main/Strength section
+        if !mainSegs.isEmpty {
+            let mainWorkoutSegs = mainSegs.map { convert($0, sectionType: "strength", sectionLabel: "STRENGTH") }
+            allWorkoutSegments.append(contentsOf: mainWorkoutSegs)
+
+            sections.append(WorkoutSection(
+                type: .strength,
+                label: "STRENGTH",
+                format: nil,
+                formatDetails: nil,
+                segments: mainWorkoutSegs
+            ))
+        }
+
+        // Build Cool-down section
+        if !cooldownSegs.isEmpty {
+            let cooldownWorkoutSegs = cooldownSegs.map { convert($0, sectionType: "cooldown", sectionLabel: "COOL-DOWN") }
+            allWorkoutSegments.append(contentsOf: cooldownWorkoutSegs)
+
+            sections.append(WorkoutSection(
+                type: .cooldown,
+                label: "COOL-DOWN",
+                format: nil,
+                formatDetails: nil,
+                segments: cooldownWorkoutSegs
+            ))
         }
 
         return Workout(
             id: workout.id,
             userId: workout.userId,
+            name: workout.name,
             date: workout.scheduledDate,
             type: workout.workoutType,
             status: .inProgress,
-            segments: workoutSegments,
-            totalDuration: Double(workout.estimatedDuration * 60), // Convert minutes to seconds
+            segments: allWorkoutSegments,
+            sections: sections,
+            totalDuration: Double(workout.estimatedDuration * 60),
             estimatedCalories: nil,
             readinessScore: nil,
             notes: workout.aiExplanation

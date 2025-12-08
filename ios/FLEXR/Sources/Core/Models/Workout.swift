@@ -3,43 +3,149 @@ import Foundation
 struct Workout: Identifiable, Codable, Equatable {
     let id: UUID
     let userId: UUID
+    var name: String?  // Workout name from AI generation
     var date: Date
     var type: WorkoutType
     var status: WorkoutStatus
     var segments: [WorkoutSegment]
+    var sections: [WorkoutSection]?  // Grouped sections for UI display
+    var sectionsMetadata: [SectionMetadata]?  // Lightweight metadata for reconstruction
     var totalDuration: TimeInterval?
+    var estimatedDurationMinutes: Int?  // AI-estimated duration
     var estimatedCalories: Int?
     var readinessScore: Int?
     var notes: String?
     var createdAt: Date
     var updatedAt: Date
+    var routeData: RouteData?
+    var gpsSource: GPSSource?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userId = "user_id"
+        case name
+        case date = "scheduled_at"
+        case type = "workout_type"
+        case legacyType = "type"  // Fallback for old DB column
+        case status
+        case segments = "workout_segments"
+        case sections
+        case sectionsMetadata = "sections_metadata"
+        case totalDuration = "total_duration"
+        case estimatedDurationMinutes = "estimated_duration_minutes"
+        case estimatedCalories = "estimated_calories"
+        case readinessScore = "readiness_score"
+        case notes
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case routeData = "route_data"
+        case gpsSource = "gps_source"
+    }
+
+    // Custom decoder to handle DB response with backwards compatibility
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        id = try container.decode(UUID.self, forKey: .id)
+        userId = try container.decode(UUID.self, forKey: .userId)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+
+        // Try workout_type first, fall back to type for older records
+        if let workoutType = try container.decodeIfPresent(WorkoutType.self, forKey: .type) {
+            type = workoutType
+        } else if let legacyType = try container.decodeIfPresent(WorkoutType.self, forKey: .legacyType) {
+            type = legacyType
+        } else {
+            type = .custom  // Default fallback
+        }
+
+        status = try container.decodeIfPresent(WorkoutStatus.self, forKey: .status) ?? .planned
+
+        // Handle optional date
+        if let scheduledAt = try container.decodeIfPresent(Date.self, forKey: .date) {
+            date = scheduledAt
+        } else {
+            date = Date()
+        }
+
+        segments = try container.decodeIfPresent([WorkoutSegment].self, forKey: .segments) ?? []
+        sections = try container.decodeIfPresent([WorkoutSection].self, forKey: .sections)
+        sectionsMetadata = try container.decodeIfPresent([SectionMetadata].self, forKey: .sectionsMetadata)
+
+        totalDuration = try container.decodeIfPresent(TimeInterval.self, forKey: .totalDuration)
+        estimatedDurationMinutes = try container.decodeIfPresent(Int.self, forKey: .estimatedDurationMinutes)
+        estimatedCalories = try container.decodeIfPresent(Int.self, forKey: .estimatedCalories)
+        readinessScore = try container.decodeIfPresent(Int.self, forKey: .readinessScore)
+        notes = try container.decodeIfPresent(String.self, forKey: .notes)
+        createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt) ?? Date()
+        updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt) ?? Date()
+        routeData = try container.decodeIfPresent(RouteData.self, forKey: .routeData)
+        gpsSource = try container.decodeIfPresent(GPSSource.self, forKey: .gpsSource)
+    }
 
     init(
         id: UUID = UUID(),
         userId: UUID,
+        name: String? = nil,
         date: Date,
         type: WorkoutType,
         status: WorkoutStatus = .planned,
         segments: [WorkoutSegment] = [],
+        sections: [WorkoutSection]? = nil,
+        sectionsMetadata: [SectionMetadata]? = nil,
         totalDuration: TimeInterval? = nil,
+        estimatedDurationMinutes: Int? = nil,
         estimatedCalories: Int? = nil,
         readinessScore: Int? = nil,
         notes: String? = nil,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        routeData: RouteData? = nil,
+        gpsSource: GPSSource? = nil
     ) {
         self.id = id
         self.userId = userId
+        self.name = name
         self.date = date
         self.type = type
         self.status = status
         self.segments = segments
+        self.sections = sections
+        self.sectionsMetadata = sectionsMetadata
         self.totalDuration = totalDuration
+        self.estimatedDurationMinutes = estimatedDurationMinutes
         self.estimatedCalories = estimatedCalories
         self.readinessScore = readinessScore
         self.notes = notes
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.routeData = routeData
+        self.gpsSource = gpsSource
+    }
+
+    // Custom encoder - only encode to workout_type, not legacy type
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(userId, forKey: .userId)
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(date, forKey: .date)
+        try container.encode(type, forKey: .type)
+        try container.encode(status, forKey: .status)
+        try container.encode(segments, forKey: .segments)
+        try container.encodeIfPresent(sections, forKey: .sections)
+        try container.encodeIfPresent(sectionsMetadata, forKey: .sectionsMetadata)
+        try container.encodeIfPresent(totalDuration, forKey: .totalDuration)
+        try container.encodeIfPresent(estimatedDurationMinutes, forKey: .estimatedDurationMinutes)
+        try container.encodeIfPresent(estimatedCalories, forKey: .estimatedCalories)
+        try container.encodeIfPresent(readinessScore, forKey: .readinessScore)
+        try container.encodeIfPresent(notes, forKey: .notes)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encodeIfPresent(routeData, forKey: .routeData)
+        try container.encodeIfPresent(gpsSource, forKey: .gpsSource)
+        // Note: legacyType is decode-only, not encoded
     }
 
     // MARK: - Computed Properties
@@ -202,7 +308,6 @@ struct WorkoutTemplate: Identifiable, Codable {
             userId: userId,
             date: date,
             type: type,
-            status: .planned,
             segments: segments,
             estimatedCalories: calculateEstimatedCalories()
         )
@@ -252,5 +357,71 @@ enum WorkoutDifficulty: String, Codable {
         case .veryHard:
             return "Very Hard"
         }
+    }
+}
+
+// MARK: - GPS Source
+
+enum GPSSource: String, Codable {
+    case watch
+    case iphone
+
+    var displayName: String {
+        switch self {
+        case .watch:
+            return "Apple Watch"
+        case .iphone:
+            return "iPhone"
+        }
+    }
+}
+
+// MARK: - Workout Source
+
+/// Identifies where a workout originated from
+enum WorkoutSource: String, Codable {
+    case flexr = "flexr"                    // Created in FLEXR app
+    case healthKit = "healthkit"            // Imported from HealthKit (other apps)
+    case appleFitness = "apple_fitness"     // Apple Fitness+
+    case appleWatch = "apple_watch"         // Direct Apple Watch workout
+    case strava = "strava"                  // Strava (future)
+    case external = "external"              // Generic external source
+
+    var displayName: String {
+        switch self {
+        case .flexr:
+            return "FLEXR"
+        case .healthKit:
+            return "HealthKit"
+        case .appleFitness:
+            return "Apple Fitness+"
+        case .appleWatch:
+            return "Apple Watch"
+        case .strava:
+            return "Strava"
+        case .external:
+            return "External"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .flexr:
+            return "bolt.fill"
+        case .healthKit:
+            return "heart.fill"
+        case .appleFitness:
+            return "figure.run"
+        case .appleWatch:
+            return "applewatch"
+        case .strava:
+            return "figure.outdoor.cycle"
+        case .external:
+            return "arrow.down.circle"
+        }
+    }
+
+    var isExternal: Bool {
+        return self != .flexr
     }
 }

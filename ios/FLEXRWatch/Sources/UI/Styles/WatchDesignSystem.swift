@@ -1,40 +1,41 @@
 import SwiftUI
 
 /// Design system tokens and styles optimized for watchOS
+/// Brand: Electric blue for intelligence, focus, and endurance
 enum WatchDesignSystem {
     // MARK: - Colors
 
     enum Colors {
-        // Brand colors
-        static let primary = Color("AccentColor", bundle: .main)
-        static let secondary = Color.blue
+        // Brand colors - FLEXR electric blue
+        static let primary = Color("AccentColor", bundle: .main)  // Should be #0A84FF in Assets
+        static let secondary = Color(red: 0.0, green: 0.85, blue: 1.0)  // Cyan #00D9FF
 
-        // Workout segment colors
-        static let runColor = Color.blue
-        static let skiErgColor = Color.cyan
+        // Workout segment colors - HYROX stations (matches iOS)
+        static let runColor = Color(red: 0.039, green: 0.518, blue: 1.0)  // Electric blue #0A84FF
+        static let skiErgColor = Color(red: 0.0, green: 0.85, blue: 1.0)   // Cyan #00D9FF
         static let sledColor = Color.orange
         static let rowErgColor = Color.cyan
-        static let burpeeColor = Color.green
-        static let farmersColor = Color.orange
+        static let burpeeColor = Color.purple
+        static let farmersColor = Color.pink
         static let sandbagColor = Color.orange
-        static let wallBallsColor = Color.green
+        static let wallBallsColor = Color.cyan
         static let lungesColor = Color.green
 
-        // Status colors
-        static let success = Color.green
-        static let warning = Color.orange
-        static let error = Color.red
-        static let info = Color.blue
+        // Status colors - Performance indicators
+        static let success = Color.green         // Achievements, PRs
+        static let warning = Color.orange        // Caution, fatigue
+        static let error = Color.red            // Errors, overtraining
+        static let info = Color(red: 0.039, green: 0.518, blue: 1.0)  // Electric blue #0A84FF
 
-        // Metric colors
+        // Metric colors - Watch display
         static let heartRate = Color.red
-        static let pace = Color.blue
+        static let pace = Color(red: 0.039, green: 0.518, blue: 1.0)      // Electric blue #0A84FF
         static let calories = Color.orange
-        static let distance = Color.green
+        static let distance = Color(red: 0.0, green: 0.85, blue: 1.0)    // Cyan #00D9FF
 
-        // Heart rate zones
+        // Heart rate zones - Training intensity
         static let hrRest = Color.gray
-        static let hrWarmup = Color.blue
+        static let hrWarmup = Color(red: 0.039, green: 0.518, blue: 1.0)  // Electric blue #0A84FF
         static let hrFatBurn = Color.green
         static let hrCardio = Color.orange
         static let hrPeak = Color.red
@@ -191,7 +192,7 @@ struct WatchButtonStyle: ButtonStyle {
     let color: Color
     let isProminent: Bool
 
-    init(color: Color = .blue, isProminent: Bool = true) {
+    init(color: Color = Color(red: 0.039, green: 0.518, blue: 1.0), isProminent: Bool = true) {  // Electric blue default
         self.color = color
         self.isProminent = isProminent
     }
@@ -236,32 +237,7 @@ extension View {
     }
 }
 
-// MARK: - Segment Color Extension
 
-extension SegmentType {
-    var designColor: Color {
-        switch self {
-        case .run:
-            return WatchDesignSystem.Colors.runColor
-        case .skiErg, .skiErg2:
-            return WatchDesignSystem.Colors.skiErgColor
-        case .sleds:
-            return WatchDesignSystem.Colors.sledColor
-        case .rowErg:
-            return WatchDesignSystem.Colors.rowErgColor
-        case .burpeeBroadJump:
-            return WatchDesignSystem.Colors.burpeeColor
-        case .farmers:
-            return WatchDesignSystem.Colors.farmersColor
-        case .sandbag:
-            return WatchDesignSystem.Colors.sandbagColor
-        case .wallBalls:
-            return WatchDesignSystem.Colors.wallBallsColor
-        case .lunges:
-            return WatchDesignSystem.Colors.lungesColor
-        }
-    }
-}
 
 // MARK: - Gradient Styles
 

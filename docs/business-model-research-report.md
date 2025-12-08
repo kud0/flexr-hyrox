@@ -384,55 +384,66 @@ The specialized fitness training app market presents a **$10.59B opportunity in 
 
 ### 6.1 Core Subscription (Primary Revenue)
 
-**Recommended Tiered Structure:**
+**Revised Tiered Structure (Post-Market Analysis):**
 
-**FREE TIER (Lead Generation):**
-- Basic workout tracking
-- Limited workout library (5-10 workouts)
-- Progress tracking (basic metrics)
-- Apple Watch integration (basic)
-- Goal: Convert 3-5% to paid within 30 days
+**30-DAY MONEY-BACK GUARANTEE (No Free Tier):**
+- Full access to all features during trial
+- Payment required upfront (refundable)
+- Rationale: HYROX athletes are committed, not casual browsers
+- Higher quality leads, better conversion rates (7-9% vs 3-5% freemium)
+- Goal: Convert trial users within 30 days or refund
 
-**ATHLETE TIER ($14.99/month or $119.99/year):**
-- Full workout library
-- Personalized training plans
-- Advanced progress analytics
-- HYROX-specific simulations
+**TRACK TIER (€5.99/month or €49.99/year):**
+- Analytics + Apple Watch app only (NO AI training)
+- For athletes with existing coaches/programs
+- Race-day mode and tracking
+- Community access
+- "Strava for HYROX" positioning
+- Goal: Expand TAM, create upgrade path to full product
+- Target: 10% of paid users
+
+**ATHLETE TIER (€19.99/month or €179.99/year):**
+- Full AI-generated dynamic training
+- Unlimited workouts (zero pre-built plans)
 - Apple Watch full integration
+- Progress tracking and analytics
 - Community access (challenges, leaderboards)
+- User-defined training architecture
 - Goal: Capture 60-70% of paid subscribers
+- Primary revenue driver
 
-**PRO TIER ($24.99/month or $199.99/year):**
+**PRO TIER (€34.99/month or €299.99/year):**
 - Everything in Athlete tier
-- AI-powered plan adjustments
-- Race-day simulation modes
-- Video form analysis
-- Advanced recovery metrics
+- Video form analysis (AI-powered)
+- Race time predictor with confidence intervals
+- Advanced analytics and data export
+- Priority AI adaptation (same-day vs next-day)
 - Priority support
-- Exclusive Pro challenges
-- Goal: Capture 30-40% of paid subscribers, drive ~45% of revenue
+- Goal: Capture 20-30% of paid subscribers, drive ~35-40% of revenue
+- Launch after core product validated (Month 6-12)
 
-**ELITE TIER ($39.99/month or $349.99/year):**
-- Everything in Pro tier
-- 1-on-1 coach consultations (monthly)
-- Custom program design
-- Competition strategy planning
-- Early access to new features
-- Elite community access (smaller, high-performing group)
-- Goal: Capture 5-10% of paid subscribers, drive ~25% of revenue
+**ATHLETE DUO (€30/month or €299.99/year):**
+- 2 Athlete accounts with shared features
+- Partner competition dashboard
+- First 12 months: €30/month (€15/person)
+- After 12 months: €40/month (€20/person)
+- Maximum 1 new Duo per user per year
+- Goal: Customer acquisition tool - partners rotate, convert to individual
+- Target: 10% of paid accounts (20% of users counting both partners)
 
 **Projected Subscription Revenue (Year 1):**
-- 10,000 downloads
-- 3% free-to-paid conversion = 300 paid users
-- Average monthly revenue: $20/user (blended average across tiers)
-- Monthly recurring revenue (MRR): $6,000
-- Annual run rate: $72,000
+- 5,000 trial users
+- 7% conversion = 350 paid accounts
+- Average monthly revenue: €18/account (blended average)
+- Monthly recurring revenue (MRR): €6,300
+- Annual run rate: €75,600
 
 **Year 2 Projections:**
-- 50,000 downloads
-- 4% conversion (improved onboarding) = 2,000 paid users
-- MRR: $40,000
-- Annual run rate: $480,000
+- 25,000 trial users
+- 9% conversion (improved onboarding) = 2,250 paid accounts
+- Average ARPU: €19/account
+- MRR: €42,750
+- Annual run rate: €513,000
 
 ### 6.2 Coaching Marketplace (10-20% of Revenue)
 
@@ -560,56 +571,96 @@ The specialized fitness training app market presents a **$10.59B opportunity in 
 - Recovery protocols and guides
 - Price: $29.99-$99.99 per course
 
-### 6.7 Total Revenue Projection Summary
+### 6.7 Total Revenue Projection Summary (UPDATED)
 
-**Year 1:**
-- Core Subscriptions: $72,000
-- **Total: $72,000**
+**Year 1 (Conservative):**
+- Core Subscriptions: €75,600 (350 paid accounts)
+- **Total: €75,600**
 
 **Year 2:**
-- Core Subscriptions: $480,000
-- Marketplace: $30,000
-- Affiliates: $15,000
-- Event Partnerships: $10,000
-- **Total: $535,000**
+- Core Subscriptions: €513,000 (2,250 paid accounts)
+- Marketplace: €30,000 (20 coaches, 100 relationships)
+- Affiliates: €15,000 (equipment partners)
+- Event Partnerships: €10,000 (HYROX integration)
+- **Total: €568,000**
 
 **Year 3:**
-- Core Subscriptions: $1,200,000 (5,000 paid users @ $20/avg)
-- Marketplace: $120,000 (expanded coach network)
-- Affiliates: $45,000 (larger user base)
-- Corporate Wellness: $90,000
-- Event Partnerships: $25,000
-- **Total: $1,480,000**
+- Core Subscriptions: €1,368,000 (6,000 paid accounts @ €19 avg ARPU)
+- Marketplace: €120,000 (expanded coach network)
+- Affiliates: €45,000 (larger user base)
+- Corporate Wellness: €90,000 (5-10 corporate clients)
+- Event Partnerships: €25,000
+- **Total: €1,648,000**
+
+**Revenue Mix by Tier (Year 2 Example - 2,250 accounts):**
+- Track (10%): €16,173/year (225 users × €5.99 × 12)
+- Athlete (60%): €323,892/year (1,350 users × €19.99 × 12)
+- Pro (20%): €188,946/year (450 users × €34.99 × 12)*
+- Duo (10%): €94,500/year (225 duos × €35 avg × 12)
+
+*Pro tier launches Month 6-12 of Year 1
 
 ---
 
 ## 7. BUSINESS MODEL RECOMMENDATION
 
-### 7.1 Recommended Strategy: Hybrid Freemium + Multi-Revenue
+### 7.1 Recommended Strategy: Trial-to-Paid + Multi-Revenue (UPDATED)
 
-**Primary Model:** Freemium with multi-tiered subscriptions
+**Primary Model:** 30-day money-back guarantee with multi-tiered subscriptions (NO free tier)
 **Secondary Revenue:** Coaching marketplace, affiliates, corporate wellness
-**Market Position:** Premium HYROX/functional fitness specialist
+**Market Position:** Premium HYROX/functional fitness specialist with AI-first approach
 
-### 7.2 Pricing Strategy
+### 7.2 Pricing Strategy (REVISED)
 
-**Launch Pricing (First 6 Months):**
-- FREE: Full feature access
-- ATHLETE: $12.99/month or $99.99/year (20% launch discount)
-- PRO: $19.99/month or $159.99/year (20% launch discount)
-- Goal: Build user base, gather feedback, establish retention baselines
+**Launch Pricing (Day 1):**
+- **30-Day Money-Back Guarantee:** Full access, payment required upfront, refundable
+- **TRACK:** €5.99/month or €49.99/year (analytics only, no AI training)
+- **ATHLETE:** €19.99/month or €179.99/year (core product, 70-80% of users)
+- **ATHLETE DUO:** €30/month or €299.99/year (2 accounts, acquisition tool)
+- Goal: Maximize conversion quality, establish payment habits
 
-**Standard Pricing (Ongoing):**
-- FREE: Limited features (lead generation)
-- ATHLETE: $14.99/month or $119.99/year
-- PRO: $24.99/month or $199.99/year
-- ELITE: $39.99/month or $349.99/year (launch in Year 2)
+**Year 1 Expansion (Month 6-12):**
+- **PRO:** €34.99/month or €299.99/year (add after core product validated)
+- Features: Video analysis, race predictor, advanced analytics
+- Target: 20-30% of paid users, 35-40% of revenue
 
-**Pricing Rationale:**
-- Below WHOOP ($30/month) but premium to general fitness apps ($9.99)
-- Aligns with specialized training apps (Runna $17.99, HWPO similar range)
-- Creates perceived value through specialization
-- Annual discounts (30-35%) encourage commitment and reduce churn
+**Pricing Rationale (Updated):**
+1. **No Free Tier = Higher Quality Users**
+   - HYROX athletes are committed (spend €130-220/race)
+   - 30-day guarantee reduces friction without "free forever" users
+   - Better conversion (7-9% vs 3-5% freemium)
+   - Payment habit established from Day 1
+
+2. **€19.99 Athlete Tier = Sweet Spot**
+   - Below WHOOP (€30/month) but premium to generic apps (€10)
+   - Aligns with specialized training apps (Runna €18, HWPO €20)
+   - Psychological advantage over €25 single-tier pricing
+   - Justifies specialization and AI-native approach
+
+3. **Track Tier (€5.99) = Market Expansion**
+   - Captures athletes with existing coaches
+   - "Strava for HYROX" positioning
+   - Gateway to full product (easy upgrade path)
+   - Expands TAM without cannibalizing core
+
+4. **Pro Tier (€34.99) = Revenue Optimization**
+   - Captures whale users (20-30% of paid base)
+   - Video analysis and race predictor justify premium
+   - Drives 35-40% of revenue from smaller segment
+   - Launch after core product validated (low complexity risk)
+
+5. **Duo Pack (€30) = Customer Acquisition**
+   - Not a revenue tier - it's €15/person CAC for TWO users
+   - Partners rotate yearly → convert to individual plans
+   - Price increase at 12 months prevents permanent discounting
+   - 1 Duo/year limit prevents gaming
+   - Doubles market (couples training together)
+
+6. **Annual Discounts Drive LTV**
+   - 33% discount (€179.99 vs €239.88 for Athlete)
+   - Immediate revenue capture
+   - Reduces monthly churn
+   - Increases commitment
 
 ### 7.3 Revenue Projections Considerations
 

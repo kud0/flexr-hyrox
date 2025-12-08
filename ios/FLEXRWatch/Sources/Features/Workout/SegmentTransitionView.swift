@@ -2,249 +2,184 @@ import SwiftUI
 import WatchKit
 
 struct SegmentTransitionView: View {
-    @EnvironmentObject var workoutManager: WorkoutSessionManager
+    let completedSegment: WorkoutSegment
+    let completionTime: TimeInterval
+    let nextSegment: WorkoutSegment?
+    let onStart: () -> Void
 
-    let nextSegment: WorkoutSegment
-    let restDuration: TimeInterval
-
-    @State private var remainingRest: TimeInterval
-    @State private var timer: Timer?
-    @State private var isReady = false
-
-    init(nextSegment: WorkoutSegment, restDuration: TimeInterval = 30) {
-        self.nextSegment = nextSegment
-        self.restDuration = restDuration
-        self._remainingRest = State(initialValue: restDuration)
-    }
+    private let appleGreen = Color(red: 0.19, green: 0.82, blue: 0.35)
 
     var body: some View {
-        VStack(spacing: 12) {
-            // Next Segment Preview
-            VStack(spacing: 8) {
-                Text("NEXT")
-                    .font(.caption2.bold())
-                    .foregroundColor(.secondary)
-
+        VStack(spacing: 0) {
+            // Completed Segment Section
+            VStack(spacing: 4) {
                 HStack(spacing: 6) {
-                    Image(systemName: nextSegment.type.iconName)
-                        .font(.title3)
-                    Text(nextSegment.name)
-                        .font(.title3.bold())
-                }
-                .foregroundColor(nextSegment.type.color)
-                .lineLimit(1)
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(appleGreen)
 
-                if let target = nextSegment.targetDuration {
-                    Text("Target: \(target.formattedTime)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                } else if let distance = nextSegment.targetDistance {
-                    Text("Distance: \(Int(distance))m")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    Text(completedSegment.displayName.uppercased())
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
                 }
+
+                Text("Done: \(completionTime.formattedTime)")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
             }
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity)
+            .background(Color.black.opacity(0.3))
+
+            // Divider
+            Rectangle()
+                .fill(Color.gray.opacity(0.3))
+                .frame(height: 1)
 
             Spacer()
 
-            // Rest Timer or Heart Rate Recovery
-            if remainingRest > 0 {
-                RestTimerView(
-                    remaining: remainingRest,
-                    total: restDuration
-                )
+            // Next Segment Section
+            if let next = nextSegment {
+                VStack(spacing: 8) {
+                    Text("NEXT UP:")
+                        .font(.system(size: 11, weight: .semibold))
+                        .foregroundColor(.gray)
+
+                    HStack(spacing: 6) {
+                        Image(systemName: next.segmentType.icon)
+                            .font(.system(size: 18))
+                        Text(next.displayName.uppercased())
+                            .font(.system(size: 16, weight: .bold))
+                            .lineLimit(1)
+                    }
+                    .foregroundColor(colorForSegment(next.segmentType))
+
+                    if let targetInfo = nextSegmentTargetInfo {
+                        Text(targetInfo)
+                            .font(.system(size: 11))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                    }
+
+                    if let context = nextSegmentContext {
+                        Text(context)
+                            .font(.system(size: 10))
+                            .foregroundColor(.gray.opacity(0.8))
+                            .italic()
+                    }
+                }
             } else {
-                HeartRateRecoveryView(
-                    currentHR: workoutManager.currentHeartRate,
-                    isReady: $isReady
-                )
+                // Workout Complete
+                VStack(spacing: 8) {
+                    Image(systemName: "flag.checkered.circle.fill")
+                        .font(.system(size: 32))
+                        .foregroundColor(appleGreen)
+
+                    Text("WORKOUT COMPLETE")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                }
             }
 
             Spacer()
 
-            // Start Button
+            // Divider
+            Rectangle()
+                .fill(Color.gray.opacity(0.3))
+                .frame(height: 1)
+
+            // Action Button
             Button {
-                startNextSegment()
+                WKInterfaceDevice.current().play(.success)
+                onStart()
             } label: {
-                Label(
-                    remainingRest > 0 ? "Skip Rest" : "START",
-                    systemImage: "play.fill"
-                )
-                .font(.headline)
-                .frame(maxWidth: .infinity)
+                Text(nextSegment != nil ? "TAP TO START" : "FINISH")
+                    .font(.system(size: 15, weight: .bold))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .background(appleGreen)
+                    .foregroundColor(.black)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(remainingRest > 0 ? .orange : .green)
-            .padding(.horizontal)
-        }
-        .padding(.vertical)
-        .onAppear {
-            startRestTimer()
-        }
-        .onDisappear {
-            timer?.invalidate()
+            .buttonStyle(.plain)
+            .padding(.vertical, 8)
         }
     }
 
-    // MARK: - Timer Management
+    // MARK: - Computed Properties
 
-    private func startRestTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if remainingRest > 0 {
-                remainingRest -= 1
+    private var nextSegmentTargetInfo: String? {
+        guard let next = nextSegment else { return nil }
 
-                // Haptic feedback at intervals
-                if remainingRest == 10 || remainingRest == 5 {
-                    WKInterfaceDevice.current().play(.notification)
-                } else if remainingRest == 3 || remainingRest == 2 || remainingRest == 1 {
-                    WKInterfaceDevice.current().play(.click)
-                } else if remainingRest == 0 {
-                    WKInterfaceDevice.current().play(.start)
-                }
-            } else {
-                timer?.invalidate()
-            }
+        var components: [String] = []
+
+        if let duration = next.targetDuration {
+            components.append("Target: \(duration.formattedTime)")
         }
+
+        if let distance = next.targetDistance {
+            components.append("\(Int(distance))m")
+        }
+
+        if let reps = next.targetReps {
+            components.append("\(reps) reps")
+        }
+
+        if let pace = next.targetPace {
+            components.append(pace)
+        }
+
+        return components.isEmpty ? nil : components.joined(separator: " • ")
     }
 
-    private func startNextSegment() {
-        timer?.invalidate()
-        WKInterfaceDevice.current().play(.start)
-        workoutManager.startNextSegment()
-    }
-}
-
-// MARK: - Rest Timer View
-struct RestTimerView: View {
-    let remaining: TimeInterval
-    let total: TimeInterval
-
-    var progress: Double {
-        1.0 - (remaining / total)
+    private var nextSegmentContext: String? {
+        guard nextSegment != nil else { return nil }
+        return "(Post-\(completedSegment.displayName))"
     }
 
-    var body: some View {
-        VStack(spacing: 8) {
-            Text("REST")
-                .font(.caption2.bold())
-                .foregroundColor(.secondary)
-
-            ZStack {
-                // Progress Ring
-                Circle()
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 12)
-                    .frame(width: 100, height: 100)
-
-                Circle()
-                    .trim(from: 0, to: progress)
-                    .stroke(
-                        remaining <= 5 ? Color.red : Color.orange,
-                        style: StrokeStyle(lineWidth: 12, lineCap: .round)
-                    )
-                    .frame(width: 100, height: 100)
-                    .rotationEffect(.degrees(-90))
-                    .animation(.linear(duration: 1.0), value: progress)
-
-                // Timer Text
-                Text("\(Int(remaining))")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
-                    .foregroundColor(remaining <= 5 ? .red : .primary)
-            }
-
-            Text("seconds remaining")
-                .font(.caption2)
-                .foregroundColor(.secondary)
+    private func colorForSegment(_ type: SegmentType) -> Color {
+        switch type {
+        case .run: return DesignSystem.Colors.running
+        case .station: return DesignSystem.Colors.secondary
+        case .rest: return DesignSystem.Colors.zone1
+        default: return .white
         }
     }
 }
 
-// MARK: - Heart Rate Recovery View
-struct HeartRateRecoveryView: View {
-    let currentHR: Int
-    @Binding var isReady: Bool
+// MARK: - Local Helpers
 
-    private let recoveryThreshold = 120 // BPM
-
-    var body: some View {
-        VStack(spacing: 8) {
-            Text("HEART RATE")
-                .font(.caption2.bold())
-                .foregroundColor(.secondary)
-
-            HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text("\(currentHR)")
-                    .font(.system(size: 42, weight: .bold, design: .rounded))
-                    .foregroundColor(hrColor)
-
-                Text("BPM")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-
-            // Recovery Status
-            HStack(spacing: 6) {
-                Image(systemName: isRecovered ? "checkmark.circle.fill" : "arrow.down.circle")
-                    .foregroundColor(isRecovered ? .green : .orange)
-
-                Text(isRecovered ? "Recovered" : "Recovering...")
-                    .font(.caption)
-                    .foregroundColor(isRecovered ? .green : .orange)
-            }
-        }
-        .onChange(of: currentHR) { oldValue, newValue in
-            isReady = newValue <= recoveryThreshold
-        }
-    }
-
-    private var isRecovered: Bool {
-        currentHR <= recoveryThreshold
-    }
-
-    private var hrColor: Color {
-        if currentHR <= recoveryThreshold {
-            return .green
-        } else if currentHR <= 140 {
-            return .orange
-        } else {
-            return .red
-        }
-    }
-}
-
-// MARK: - Supporting Types
-struct WorkoutSegment: Identifiable, Codable {
-    let id: UUID
-    let name: String
-    let type: SegmentType
-    let targetDuration: TimeInterval?
-    let targetDistance: Double?
-    let targetReps: Int?
-
-    init(
-        id: UUID = UUID(),
-        name: String,
-        type: SegmentType,
-        targetDuration: TimeInterval? = nil,
-        targetDistance: Double? = nil,
-        targetReps: Int? = nil
-    ) {
-        self.id = id
-        self.name = name
-        self.type = type
-        self.targetDuration = targetDuration
-        self.targetDistance = targetDistance
-        self.targetReps = targetReps
-    }
-}
+// Removed duplicate WorkoutSegment struct to use shared Core/Models/WorkoutSegment.swift
 
 #Preview {
     SegmentTransitionView(
-        nextSegment: WorkoutSegment(
-            name: "Ski Erg",
-            type: .skiErg,
-            targetDistance: 1000
+        completedSegment: WorkoutSegment(
+            workoutId: UUID(),
+            segmentType: .station,
+            stationType: .wallBalls,
+            targetReps: 100
         ),
-        restDuration: 30
+        completionTime: 68,
+        nextSegment: WorkoutSegment(
+            workoutId: UUID(),
+            segmentType: .run,
+            targetDuration: 190,
+            targetDistance: 600,
+            targetPace: "3:05-3:15"
+        ),
+        onStart: {}
     )
-    .environmentObject(WorkoutSessionManager())
+}
+
+#Preview("Workout Complete") {
+    SegmentTransitionView(
+        completedSegment: WorkoutSegment(
+            workoutId: UUID(),
+            segmentType: .run,
+            targetDistance: 600
+        ),
+        completionTime: 192,
+        nextSegment: nil,
+        onStart: {}
+    )
 }

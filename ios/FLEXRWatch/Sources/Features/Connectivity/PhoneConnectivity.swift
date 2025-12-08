@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 import WatchConnectivity
 
 class PhoneConnectivity: NSObject, ObservableObject {
@@ -127,8 +128,28 @@ class PhoneConnectivity: NSObject, ObservableObject {
             handleWorkoutStopCommand()
         case "settings":
             handleSettingsUpdate(message)
+        case "userId":
+            handleUserIdSync(message)
         default:
             print("⚠️ Unknown message type: \(type)")
+        }
+    }
+
+    private func handleUserIdSync(_ message: [String: Any]) {
+        guard let userIdString = message["userId"] as? String,
+              let userId = UUID(uuidString: userIdString) else {
+            print("❌ Invalid userId in sync message")
+            return
+        }
+
+        DispatchQueue.main.async {
+            WatchPlanService.shared.setUserId(userId)
+            print("✅ Synced userId from iPhone: \(userId)")
+
+            // Fetch workouts now that we have userId
+            Task {
+                await WatchPlanService.shared.fetchTodaysWorkouts()
+            }
         }
     }
 

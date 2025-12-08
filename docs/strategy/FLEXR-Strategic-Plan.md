@@ -701,12 +701,23 @@ transition session to focus on loaded carries and grip work."
 
 ### Primary Revenue: Subscriptions (70-80%)
 
+**Launch Strategy: 30-Day Money-Back Guarantee**
+- Full access trial (no free tier)
+- All features available during trial
+- Reduces "free forever" users, increases conversion quality
+
 | Tier | Monthly | Annual | Features | Target Users |
 |------|---------|--------|----------|--------------|
-| **FREE** | $0 | $0 | AI-generated workouts (limited to 2/week), basic tracking, community read-only | Lead generation |
-| **ATHLETE** | $14.99 | $119.99 | Unlimited AI workouts, Apple Watch, progress tracking, community | 60-70% of paid |
-| **PRO** | $24.99 | $199.99 | + Advanced AI learning, race predictor, deep analytics, priority adaptation | 30-40% of paid |
-| **ELITE** | $39.99 | $349.99 | + Coach access, video analysis, priority support | 5-10% of paid |
+| **TRACK** | €5.99 | €49.99 | Analytics + Apple Watch app only (no AI training), race-day mode, community access | Athletes with existing coaches/programs |
+| **ATHLETE** | €19.99 | €179.99 | Full AI training, unlimited workouts, Apple Watch integration, progress tracking, community | 70-80% of paid users |
+| **PRO** | €34.99 | €299.99 | + Video form analysis, race predictor, advanced analytics, priority AI adaptation, export data | 20-30% of paid users (launch later) |
+| **ATHLETE DUO** | €30.00* | €299.99 | 2 Athlete accounts, shared features, partner competition dashboard | Couples & training partners |
+
+**DUO Pricing Structure:**
+- First 12 months: €30/month (€15/person)
+- After 12 months: €40/month (€20/person)
+- Maximum 1 new Duo per user per year
+- Designed as customer acquisition tool - partners rotate, convert to individual plans
 
 ### Secondary Revenue Streams (20-30% at scale)
 
@@ -723,25 +734,41 @@ transition session to focus on loaded carries and grip work."
 
 ### Why This Pricing Works
 
-1. **$15-25/mo is the sweet spot**
-   - More than generic apps ($10) - justified by specialization
-   - Less than human coaching ($150-200)
-   - Aligns with successful niche apps (Runna $18, HWPO $20)
+1. **€19.99/mo is the competitive sweet spot**
+   - More than generic apps (€10) - justified by specialization
+   - Less than human coaching (€150-200)
+   - Aligns with successful niche apps (Runna €18, HWPO €20)
+   - Psychological pricing advantage over €25
 
 2. **Annual discount drives LTV**
-   - 33% discount for annual
-   - Increases commitment
-   - Reduces churn
+   - 33% discount for annual (€179.99 vs €239.88)
+   - Increases commitment and reduces churn
+   - Immediate revenue capture
 
-3. **Free tier for acquisition**
-   - Demonstrate value before payment
-   - Build community base
-   - Viral potential
+3. **30-day money-back guarantee over free tier**
+   - HYROX athletes are committed, not casual browsers
+   - Reduces "free forever" users who never convert
+   - Higher quality leads, clearer conversion funnel
+   - Better retention (paid users > free users)
 
-4. **Elite tier for whales**
-   - 5-10% of users
-   - 25% of subscription revenue
-   - Includes human coaching element
+4. **Track tier (€5.99) captures adjacent market**
+   - Athletes with existing coaches/programs
+   - "Strava for HYROX" positioning
+   - Gateway to full product (upgrade path)
+   - Expands TAM without cannibalizing core product
+
+5. **Pro tier (€34.99) captures whales**
+   - 20-30% of users will pay premium for advanced features
+   - Video analysis and race predictor justify premium
+   - Drives 35-40% of revenue from smaller user base
+   - Launch after core product is validated
+
+6. **Duo Pack (€30) as acquisition tool**
+   - Not a revenue tier - it's customer acquisition
+   - €15/person CAC to acquire TWO potential customers
+   - Partners rotate yearly → convert to individual plans
+   - 12-month pricing increase prevents permanent discounting
+   - 1 Duo/year limit prevents gaming the system
 
 ---
 
@@ -749,24 +776,43 @@ transition session to focus on loaded carries and grip work."
 
 ### Conservative Model
 
-| Year | Downloads | Paid Users | Conversion | MRR | ARR |
-|------|-----------|------------|------------|-----|-----|
-| Y1 | 5,000 | 300 | 6% | $6,000 | $72,000 |
-| Y2 | 25,000 | 2,000 | 8% | $40,000 | $480,000 |
-| Y3 | 75,000 | 5,000 | 7% | $100,000 | $1,200,000 |
+| Year | Trial Users | Paid Accounts* | Conversion | MRR | ARR |
+|------|-------------|---------------|------------|-----|-----|
+| Y1 | 5,000 | 350 | 7% | €6,300 | €75,600 |
+| Y2 | 25,000 | 2,250 | 9% | €42,750 | €513,000 |
+| Y3 | 75,000 | 6,000 | 8% | €114,000 | €1,368,000 |
+
+*Accounts include individual users + Duo packs (counted as 1 account, 2 people)
 
 ### Aggressive Model (Strong Product-Market Fit)
 
-| Year | Downloads | Paid Users | Conversion | MRR | ARR |
-|------|-----------|------------|------------|-----|-----|
-| Y1 | 10,000 | 800 | 8% | $16,000 | $192,000 |
-| Y2 | 50,000 | 5,000 | 10% | $100,000 | $1,200,000 |
-| Y3 | 150,000 | 15,000 | 10% | $300,000 | $3,600,000 |
+| Year | Trial Users | Paid Accounts | Conversion | MRR | ARR |
+|------|-------------|--------------|------------|-----|-----|
+| Y1 | 10,000 | 900 | 9% | €17,100 | €205,200 |
+| Y2 | 50,000 | 6,000 | 12% | €114,000 | €1,368,000 |
+| Y3 | 150,000 | 18,000 | 12% | €342,000 | €4,104,000 |
 
-### Key Assumptions
-- Average revenue per paid user: $20/month
-- 70% annual, 30% monthly subscribers
-- Secondary revenue adds 20% in Y2+
+### Revenue Distribution Assumptions (Conservative Y2)
+
+**User Mix (2,250 paid accounts):**
+- Track (10%): 225 × €5.99 = €1,348/mo
+- Athlete (60%): 1,350 × €19.99 = €26,987/mo
+- Pro (20%): 450 × €34.99 = €15,746/mo
+- Duo (10%): 225 × €30-40** = €7,875/mo
+
+**Blended ARPU: €23.11/account**
+**Total MRR: €51,956** (includes secondary revenue streams)
+
+**Annual vs Monthly Split:**
+- 70% annual subscriptions (lower churn, immediate revenue)
+- 30% monthly subscriptions (flexibility, trial-to-paid)
+
+**Secondary revenue adds 20% in Y2+:**
+- Coaching marketplace
+- Equipment affiliates
+- Corporate wellness (late Y2/Y3)
+
+**Average Duo price of €35/month (50% at €30 in first 12 months, 50% at €40 after)
 
 ---
 
@@ -1204,7 +1250,111 @@ No templates. No pre-built plans. Pure AI. Pure performance.
 | **Hosting** | AWS/GCP | Scalability |
 | **CDN** | CloudFront/Cloudflare | Video content |
 | **Monitoring** | Datadog/Sentry | Error tracking |
-| **Payments** | RevenueCat | In-app purchase management |
+| **Payments** | RevenueCat + StoreKit 2 | Subscription management (see 9.3) |
+
+---
+
+## 9.3 Payment System Architecture
+
+### Why RevenueCat + Apple StoreKit 2 (Not Pure Apple IAP)
+
+**Apple StoreKit alone requires you to build:**
+- Receipt validation (complex JWS cryptographic tokens)
+- Subscription status tracking (active? trial? grace period? expired?)
+- Webhook handling (renewals, cancellations, refunds)
+- Cross-device sync
+- Analytics (Apple provides nothing)
+
+**This is 2-4 weeks of development + ongoing maintenance.**
+
+**RevenueCat abstracts all complexity:**
+
+```swift
+// Check subscription - ONE LINE
+let isActive = Purchases.shared.customerInfo?.entitlements["athlete"]?.isActive
+
+// vs 500+ lines of receipt validation code with pure Apple
+```
+
+### Fee Structure
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    PAYMENT FLOW                          │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  User pays:           €19.99                            │
+│                         │                                │
+│                         ▼                                │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │           Apple StoreKit 2                       │    │
+│  │           Takes: €3.00 (15%)                     │    │
+│  │           (Small Business Program)               │    │
+│  └─────────────────────────────────────────────────┘    │
+│                         │                                │
+│                         ▼                                │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │           RevenueCat                             │    │
+│  │           Takes: €0.17 (1%)                      │    │
+│  │           Provides: Analytics, Webhooks, SDK     │    │
+│  └─────────────────────────────────────────────────┘    │
+│                         │                                │
+│                         ▼                                │
+│  You keep:            €16.82                            │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Implementation Phases
+
+**Phase 1: Launch**
+- RevenueCat + Apple StoreKit 2
+- Native paywall UI
+- Total fee: ~16%
+
+**Phase 2: Optimize (US Market)**
+- Add Stripe Web Checkout (Epic v. Apple ruling allows external links)
+- "Subscribe on Web" button → Stripe checkout
+- Total fee: ~4% (bypasses Apple's 15%)
+- RevenueCat syncs both payment sources
+
+**Phase 3: Growth**
+- Add Superwall for paywall A/B testing
+- Test IAP vs Web conversion rates
+- Optimize without code changes
+
+### RevenueCat Pricing
+
+| Monthly Revenue | Fee |
+|-----------------|-----|
+| €0 - €2,500 | FREE |
+| €2,500+ | 1% of MTR |
+
+### Products Configuration
+
+| Product ID | Price | Entitlement |
+|------------|-------|-------------|
+| `flexr_track_monthly` | €5.99/mo | track_access |
+| `flexr_track_annual` | €49.99/yr | track_access |
+| `flexr_athlete_monthly` | €19.99/mo | athlete_access |
+| `flexr_athlete_annual` | €179.99/yr | athlete_access |
+| `flexr_pro_monthly` | €34.99/mo | pro_access |
+| `flexr_pro_annual` | €299.99/yr | pro_access |
+| `flexr_duo_monthly` | €30.00/mo | athlete_access (×2) |
+| `flexr_duo_annual` | €299.99/yr | athlete_access (×2) |
+
+### Why This Stack
+
+| Consideration | RevenueCat + StoreKit | Pure StoreKit | Stripe Only |
+|---------------|----------------------|---------------|-------------|
+| Dev time | Days | Weeks | Medium |
+| Apple compliant | ✅ | ✅ | ⚠️ US only |
+| Analytics | ✅ Built-in | ❌ Build yourself | ✅ |
+| Cross-platform | ✅ | ❌ iOS only | ✅ |
+| Fee | 16% total | 15% | 3% |
+| Conversion | Highest | Highest | Lower |
+
+**Recommendation:** Start with RevenueCat + StoreKit for compliance and speed. Add Stripe web checkout post-launch for US users to reduce fees.
 
 ---
 

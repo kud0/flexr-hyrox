@@ -26,16 +26,117 @@ struct WorkoutSegment: Identifiable, Codable, Equatable {
     var avgPace: Double? // in seconds per km
     var maxPace: Double?
     var minPace: Double?
+    var targetPace: String? // e.g., "5:00-5:15"
     var isCompromised: Bool? // for runs after stations
 
     // Context
     var previousStation: StationType? // for compromised run analysis
     var transitionTime: TimeInterval? // time between segments
 
+    // Strength Training Data
+    var exerciseName: String?
+    var sets: Int?
+    var repsPerSet: Int?
+    var weightSuggestion: String?
+
     // Metadata
     var startTime: Date?
     var endTime: Date?
     var notes: String?
+
+    // Section grouping (for functional workouts)
+    var sectionType: String?
+    var sectionLabel: String?
+    var sectionFormat: String?
+    var sectionFormatDetailsRaw: Data?  // Raw JSON for format details
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case workoutId = "workout_id"
+        case segmentType = "segment_type"
+        case stationType = "station_type"
+        case order = "order_index"
+        case targetDuration = "target_duration_seconds"
+        case targetDistance = "target_distance_meters"
+        case targetReps = "target_reps"
+        case actualDuration = "actual_duration_seconds"
+        case actualDistance = "actual_distance_meters"
+        case actualReps = "actual_reps"
+        case avgHeartRate = "avg_heart_rate"
+        case maxHeartRate = "max_heart_rate"
+        case heartRateZones = "heart_rate_zones"
+        case avgPace = "avg_pace"
+        case maxPace = "max_pace"
+        case minPace = "min_pace"
+        case targetPace = "target_pace"
+        case isCompromised = "is_compromised"
+        case previousStation = "previous_station"
+        case transitionTime = "transition_time"
+        case exerciseName = "exercise_name"
+        case sets
+        case repsPerSet = "reps_per_set"
+        case weightSuggestion = "weight_suggestion"
+        case startTime = "start_time"
+        case endTime = "end_time"
+        case notes
+        case sectionType = "section_type"
+        case sectionLabel = "section_label"
+        case sectionFormat = "section_format"
+        case sectionFormatDetailsRaw = "section_format_details"
+    }
+
+    // Custom decoder to handle edge function response (which may have different field names)
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        // ID - generate if not present (edge function AI response doesn't include it)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+
+        // Workout ID - may not be present in AI-generated segments
+        workoutId = try container.decodeIfPresent(UUID.self, forKey: .workoutId) ?? UUID()
+
+        segmentType = try container.decode(SegmentType.self, forKey: .segmentType)
+        stationType = try container.decodeIfPresent(StationType.self, forKey: .stationType)
+        order = try container.decodeIfPresent(Int.self, forKey: .order)
+
+        targetDuration = try container.decodeIfPresent(TimeInterval.self, forKey: .targetDuration)
+        targetDistance = try container.decodeIfPresent(Double.self, forKey: .targetDistance)
+        targetReps = try container.decodeIfPresent(Int.self, forKey: .targetReps)
+
+        actualDuration = try container.decodeIfPresent(TimeInterval.self, forKey: .actualDuration)
+        actualDistance = try container.decodeIfPresent(Double.self, forKey: .actualDistance)
+        actualReps = try container.decodeIfPresent(Int.self, forKey: .actualReps)
+
+        avgHeartRate = try container.decodeIfPresent(Double.self, forKey: .avgHeartRate)
+        maxHeartRate = try container.decodeIfPresent(Double.self, forKey: .maxHeartRate)
+        heartRateZones = try container.decodeIfPresent(HeartRateZones.self, forKey: .heartRateZones)
+
+        avgPace = try container.decodeIfPresent(Double.self, forKey: .avgPace)
+        maxPace = try container.decodeIfPresent(Double.self, forKey: .maxPace)
+        minPace = try container.decodeIfPresent(Double.self, forKey: .minPace)
+        targetPace = try container.decodeIfPresent(String.self, forKey: .targetPace)
+        isCompromised = try container.decodeIfPresent(Bool.self, forKey: .isCompromised)
+
+        previousStation = try container.decodeIfPresent(StationType.self, forKey: .previousStation)
+        transitionTime = try container.decodeIfPresent(TimeInterval.self, forKey: .transitionTime)
+
+        exerciseName = try container.decodeIfPresent(String.self, forKey: .exerciseName)
+        sets = try container.decodeIfPresent(Int.self, forKey: .sets)
+        repsPerSet = try container.decodeIfPresent(Int.self, forKey: .repsPerSet)
+        weightSuggestion = try container.decodeIfPresent(String.self, forKey: .weightSuggestion)
+
+        startTime = try container.decodeIfPresent(Date.self, forKey: .startTime)
+        endTime = try container.decodeIfPresent(Date.self, forKey: .endTime)
+        notes = try container.decodeIfPresent(String.self, forKey: .notes)
+
+        // Section grouping fields
+        sectionType = try container.decodeIfPresent(String.self, forKey: .sectionType)
+        sectionLabel = try container.decodeIfPresent(String.self, forKey: .sectionLabel)
+        sectionFormat = try container.decodeIfPresent(String.self, forKey: .sectionFormat)
+        // Skip format details here - we'll decode in reconstructSections later
+        // The JSONB comes as a dict which we can't easily store without FormatDetails
+        sectionFormatDetailsRaw = nil
+    }
 
     init(
         id: UUID = UUID(),
@@ -55,12 +156,21 @@ struct WorkoutSegment: Identifiable, Codable, Equatable {
         avgPace: Double? = nil,
         maxPace: Double? = nil,
         minPace: Double? = nil,
+        targetPace: String? = nil,
         isCompromised: Bool? = nil,
         previousStation: StationType? = nil,
         transitionTime: TimeInterval? = nil,
+        exerciseName: String? = nil,
+        sets: Int? = nil,
+        repsPerSet: Int? = nil,
+        weightSuggestion: String? = nil,
         startTime: Date? = nil,
         endTime: Date? = nil,
-        notes: String? = nil
+        notes: String? = nil,
+        sectionType: String? = nil,
+        sectionLabel: String? = nil,
+        sectionFormat: String? = nil,
+        sectionFormatDetailsRaw: Data? = nil
     ) {
         self.id = id
         self.workoutId = workoutId
@@ -79,12 +189,21 @@ struct WorkoutSegment: Identifiable, Codable, Equatable {
         self.avgPace = avgPace
         self.maxPace = maxPace
         self.minPace = minPace
+        self.targetPace = targetPace
         self.isCompromised = isCompromised
         self.previousStation = previousStation
         self.transitionTime = transitionTime
+        self.exerciseName = exerciseName
+        self.sets = sets
+        self.repsPerSet = repsPerSet
+        self.weightSuggestion = weightSuggestion
         self.startTime = startTime
         self.endTime = endTime
         self.notes = notes
+        self.sectionType = sectionType
+        self.sectionLabel = sectionLabel
+        self.sectionFormat = sectionFormat
+        self.sectionFormatDetailsRaw = sectionFormatDetailsRaw
     }
 
     // MARK: - Computed Properties
@@ -94,14 +213,29 @@ struct WorkoutSegment: Identifiable, Codable, Equatable {
     }
 
     var displayName: String {
+        // For any segment with a custom exercise name (strength, WODs, finishers), use it
+        if let exercise = exerciseName, !exercise.isEmpty {
+            return exercise
+        }
+        // For HYROX stations without custom name, show station type
         if segmentType == .station, let station = stationType {
             return station.displayName
         }
+        // Fallback to segment type name
         return segmentType.displayName
     }
 
     var targetDescription: String {
         var components: [String] = []
+
+        // Strength workout format: "4 x 6 @ 75% 1RM"
+        if let sets = sets, let repsPerSet = repsPerSet {
+            var strengthDesc = "\(sets) × \(repsPerSet)"
+            if let weight = weightSuggestion {
+                strengthDesc += " @ \(weight)"
+            }
+            components.append(strengthDesc)
+        }
 
         if let distance = targetDistance {
             components.append("\(Int(distance))m")
@@ -147,6 +281,8 @@ enum SegmentType: String, Codable, CaseIterable {
     case rest
     case warmup
     case cooldown
+    case strength
+    case finisher
 
     var displayName: String {
         switch self {
@@ -162,6 +298,10 @@ enum SegmentType: String, Codable, CaseIterable {
             return "Warm-up"
         case .cooldown:
             return "Cool-down"
+        case .strength:
+            return "Strength"
+        case .finisher:
+            return "Finisher"
         }
     }
 
@@ -179,6 +319,10 @@ enum SegmentType: String, Codable, CaseIterable {
             return "flame.fill"
         case .cooldown:
             return "snowflake"
+        case .strength:
+            return "dumbbell.fill"
+        case .finisher:
+            return "flame.fill"
         }
     }
 }
@@ -225,7 +369,7 @@ enum StationType: String, Codable, CaseIterable {
         case .burpeeBroadJump:
             return "figure.jumprope"
         case .rowing:
-            return "figure.rowing"
+            return "oar.2.crossed"
         case .farmersCarry:
             return "figure.walk"
         case .sandbagLunges:
@@ -295,40 +439,4 @@ enum MuscleGroup: String, Codable {
 }
 
 // MARK: - Heart Rate Zones
-
-struct HeartRateZones: Codable, Equatable {
-    var zone1Duration: TimeInterval = 0 // Recovery (50-60% max HR)
-    var zone2Duration: TimeInterval = 0 // Aerobic (60-70% max HR)
-    var zone3Duration: TimeInterval = 0 // Tempo (70-80% max HR)
-    var zone4Duration: TimeInterval = 0 // Threshold (80-90% max HR)
-    var zone5Duration: TimeInterval = 0 // Max (90-100% max HR)
-
-    var totalDuration: TimeInterval {
-        zone1Duration + zone2Duration + zone3Duration + zone4Duration + zone5Duration
-    }
-
-    var dominantZone: Int {
-        let zones = [zone1Duration, zone2Duration, zone3Duration, zone4Duration, zone5Duration]
-        guard let maxDuration = zones.max(),
-              let index = zones.firstIndex(of: maxDuration) else {
-            return 3
-        }
-        return index + 1
-    }
-
-    func percentage(for zone: Int) -> Double {
-        guard totalDuration > 0, zone >= 1, zone <= 5 else { return 0 }
-
-        let zoneDuration: TimeInterval
-        switch zone {
-        case 1: zoneDuration = zone1Duration
-        case 2: zoneDuration = zone2Duration
-        case 3: zoneDuration = zone3Duration
-        case 4: zoneDuration = zone4Duration
-        case 5: zoneDuration = zone5Duration
-        default: return 0
-        }
-
-        return (zoneDuration / totalDuration) * 100
-    }
-}
+// Note: HeartRateZones is defined in RunningSession.swift and shared across the app

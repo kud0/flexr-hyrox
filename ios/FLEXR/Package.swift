@@ -16,13 +16,14 @@ let package = Package(
         ),
     ],
     dependencies: [
-        // Add dependencies here if needed
-        // Example: .package(url: "https://github.com/realm/realm-swift.git", from: "10.40.0")
+        // Core Data is native - no external dependencies needed
     ],
     targets: [
         .target(
             name: "FLEXR",
-            dependencies: [],
+            dependencies: [
+                // Core Data is a framework, not a package dependency
+            ],
             path: "Sources",
             resources: [
                 .process("Resources")
